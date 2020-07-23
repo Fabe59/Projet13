@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>OpenRider project in progress !!</h1>
+<div>
+    <p>Trouvez un hebergement</p>
+    <form action="{% url 'accomodation:search' %}" method="GET">
+        <input  type="search" name="search" placeholder="Entrez le nom d'une ville ?" autofocus>
+        <input  type="submit" value="Lancer la recherche">
+    </form>
+</div>
 {% endblock content%}
