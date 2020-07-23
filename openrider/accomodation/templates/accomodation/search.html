@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<a href="{% url 'home' %}">Accueil</a>
+
+<h1>Voici le resultat de la recherche pour la ville de {{ research }}:</h1>
+
+{% for elt in result %}
+<ul>
+<li>{{ elt.name }}
+<li>{{ elt.category }}
+<li>{{ elt.park }}
+<li>{{ elt.number }} {{ elt.road }}, {{ elt.zipcode }}, {{ elt.city }}
+<li>{{ elt.phone }}
+<hr>
+</ul>
+
+{% endfor %}
+
+{% endblock content%}
