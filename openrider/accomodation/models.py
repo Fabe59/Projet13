@@ -14,9 +14,10 @@ class Parking(models.Model):
 
 
 class Accomodation(models.Model):
+    auto_increment_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200, default=None)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    number = models.PositiveSmallIntegerField(blank=True)
+    number = models.PositiveSmallIntegerField(blank=True, null=True)
     road = models.CharField(max_length=250)
     zipcode = models.PositiveIntegerField()
     city = models.CharField(max_length=200)
