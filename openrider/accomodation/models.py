@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Category(models.Model):
     name = models.CharField(max_length=200, default=None)
 
@@ -29,3 +30,36 @@ class Accomodation(models.Model):
     def __str__(self):
         return '{}, {}, {}'.format(self.name, self.zipcode, self.city)
 
+class AddAccomodation(models.Model):
+    addAccomodation_category_list = (
+        ("hotel", "Hotel"),
+        ("gite", "Gite"),
+        ("bnb", "BnB"),
+    )
+
+    addAccomodation_parking_list = (
+        ("garage", "Garage"),
+        ("couvert", "Couvert"),
+        ("ferme", "Fermé"),
+    )
+
+    addAccomodation_statut_list = (
+        ("Non_lu", "Non lu"),
+        ("Lu", "Lu"),
+        ("Archive", "Archivé"),
+    )
+
+    addAccomodation_name = models.CharField("Nom", max_length=128)
+    addAccomodation_category = models.CharField("Catégorie", choices=addAccomodation_category_list, max_length=16)
+    addAccomodation_number = models.PositiveSmallIntegerField("Numéro")
+    addAccomodation_road = models.CharField("Adresse", max_length=248)
+    addAccomodation_zipcode = models.PositiveIntegerField("Code Postal")
+    addAccomodation_city = models.CharField("Ville", max_length=50)
+    addAccomodation_phone = models.BigIntegerField("Téléphone")
+    addAccomodation_email = models.EmailField("Email")
+    addAccomodation_url = models.URLField("URL")
+    addAccomodation_parking = models.CharField("Type de parking", choices=addAccomodation_parking_list, max_length=16)
+    addAccomodation_statut = models.CharField("Statut de la demande", choices=addAccomodation_statut_list, max_length=16, default="Non_lu")
+
+    def __str__(self):
+        return '{}'.format(self.addAccomodation_name)

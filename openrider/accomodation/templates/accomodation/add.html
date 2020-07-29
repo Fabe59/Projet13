@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h2>Formulaire de proposition d'hébergement</h2>
+
+<div>
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Add Accomodation ?</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <br>
+        <input type="submit" class="btn btn-success" value="Proposer">
+
+{% endblock content%}
