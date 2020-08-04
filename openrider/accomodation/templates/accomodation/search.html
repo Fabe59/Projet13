@@ -7,15 +7,22 @@
 <h1>Voici le resultat de la recherche pour la ville de {{ research }}:</h1>
 
 {% for elt in result %}
-<ul>
-<li>{{ elt.name }}
-<li>{{ elt.category }}
-<li>{{ elt.park }}
-<li>{{ elt.number }} {{ elt.road }}, {{ elt.zipcode }}, {{ elt.city }}
-<li>{{ elt.phone }}
-<hr>
-</ul>
+    
+    <ul>
+    <li>{{ elt.name }}
+    <li>{{ elt.category }}
+    <li>{{ elt.park }}
+    <li>{{ elt.number }} {{ elt.road }}, {{ elt.zipcode }}, {{ elt.city }}
+    <li>{{ elt.phone }}
+    <!--<li>{% for coordinates in coordinates_list %}
+        {{ coordinates }}
+        {% endfor %}-->
+    <li>{{ elt.lat }}
+    <li>{{ elt.lon }}
+    </li>
+    <hr>
+    </ul>
 
 {% endfor %}
 
-{% endblock content%}
+{% endblock content %}
