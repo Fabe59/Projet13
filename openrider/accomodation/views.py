@@ -16,6 +16,7 @@ def add(request):
 
     return render(request, 'accomodation/add.html', {'form': form})
 
+@login_required
 def search(request):
     research = request.GET['search']
 
@@ -25,7 +26,6 @@ def search(request):
     result = Accomodation.objects.filter(city__contains=research)
     
     url = "https://nominatim.openstreetmap.org/search/<query>?"
-    coordinates_list = []
     for elt in result:
         params = {
             "street": elt.road,
@@ -39,10 +39,7 @@ def search(request):
         element = Accomodation.objects.get(auto_increment_id=elt.auto_increment_id)
         elt.lat = data[0]['lat']
         elt.lon = data[0]['lon']
-        
-        '''coordinates = data['features'][0]['geometry']['coordinates']
-        coordinates_list.append(coordinates)'''
-
+        elt.coordinates = [data[0]['lat'], data[0]['lon']]
 
     return render(
         request,
@@ -50,5 +47,6 @@ def search(request):
         {
             'research': research,
             'result': result,
+            
         }
         )

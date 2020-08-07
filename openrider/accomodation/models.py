@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 
 class Category(models.Model):
@@ -27,10 +28,11 @@ class Accomodation(models.Model):
     url = models.CharField(max_length=200)
     lat = models.DecimalField(max_digits=7, decimal_places=5, null=True, blank=True)
     lon = models.DecimalField(max_digits=7, decimal_places=5, null=True, blank=True)
+    coordinates = ArrayField(models.DecimalField(max_digits=7, decimal_places=5), null=True, blank=True)
     park = models.ForeignKey(Parking, on_delete=models.CASCADE)
 
     def __str__(self):
-        return '{}, {}, {}, {}'.format(self.name, self.road, self.zipcode, self.city)
+        return '{}, {}, {}, {} - {}, {}'.format(self.name, self.road, self.zipcode, self.city, self.lat, self.lon)
 
 class AddAccomodation(models.Model):
     addAccomodation_category_list = (
@@ -53,7 +55,7 @@ class AddAccomodation(models.Model):
 
     addAccomodation_name = models.CharField("Nom", max_length=128)
     addAccomodation_category = models.CharField("Catégorie", choices=addAccomodation_category_list, max_length=16)
-    addAccomodation_number = models.PositiveSmallIntegerField("Numéro")
+    addAccomodation_number = models.PositiveSmallIntegerField("Numéro", null=True, blank=True)
     addAccomodation_road = models.CharField("Adresse", max_length=248)
     addAccomodation_zipcode = models.PositiveIntegerField("Code Postal")
     addAccomodation_city = models.CharField("Ville", max_length=50)
