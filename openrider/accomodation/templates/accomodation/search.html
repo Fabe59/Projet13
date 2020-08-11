@@ -7,15 +7,14 @@
 <h1>Voici le resultat de la recherche pour la ville de {{ research }}:</h1>
 
 {% for elt in result %}
-    <ul>
-    <li>{{ elt.name }}
+    <ul class="result_elt">
+    <li class="name">{{ elt.name }}
     <li>{{ elt.category }}
     <li>{{ elt.park }}
     <li>{{ elt.number }} {{ elt.road }}, {{ elt.zipcode }}, {{ elt.city }}
     <li>{{ elt.phone }}
-    <li>{{ elt.lat }}
-    <li>{{ elt.lon }}
-    <li class="leaflet-marker">{{ elt.coordinates }}
+    <li class="lat">{{ elt.lat }}
+    <li class="lon">{{ elt.lon }}
     </li>
     <hr>
     </ul>

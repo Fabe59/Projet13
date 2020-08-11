@@ -1,22 +1,35 @@
-//let name = 'Treulan, Pluneret';
-//let coordinates = [47.7076568, -2.9810811];
+// Création d'une liste vide pour les coordonnées et le centrage de la carte
+bounds = []
 
 // Création de la map
-let map = L.map('mapid').setView([47.7076568, -2.9810811], 9);
+let map = L.map('mapid');
 
 // Création et ajout du tyleLayer à la map
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 20,
 }).addTo(map);
 
-// Création d'un marker
-//let marker = L.marker(coordinates).addTo(map);
-let element = document.querySelectorAll('.leaflet-marker');
-let elArr = Array.from(element);
-console.log(element);
-console.log(elArr);
-elArr.forEach(item => console.log(item));
+// Création des marqueurs
+let result_elt = document.querySelectorAll('.result_elt');
+for (var i = 0; i < result_elt.length; i++) {
+    let lat = result_elt[i].querySelector('.lat').textContent;
+    let lon = result_elt[i].querySelector('.lon').textContent;
+    let name = result_elt[i].querySelector('.name').textContent;
+    coord = [lat, lon];
+    bounds.push(coord)
+    L.marker(coord).setLatLng(coord).addTo(map)
+    //L.popup()
+    //.setLatLng(coord)
+    //.setContent(name)
+    //.addTo(map);
+  }
 
-//{% for elt in result %}
-//    L.marker({{ elt.coordinates }}).addTo(map);
-//{% endfor %}
+// Centrage dynamique de la carte
+map.fitBounds(bounds)
+
+
+
+
+
+
+
