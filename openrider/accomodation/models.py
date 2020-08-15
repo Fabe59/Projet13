@@ -26,9 +26,8 @@ class Accomodation(models.Model):
     phone = models.CharField(max_length=14)
     email = models.CharField(max_length=50)
     url = models.CharField(max_length=200)
-    lat = models.DecimalField(max_digits=7, decimal_places=5, null=True, blank=True)
-    lon = models.DecimalField(max_digits=7, decimal_places=5, null=True, blank=True)
-    coordinates = ArrayField(models.DecimalField(max_digits=7, decimal_places=5), null=True, blank=True)
+    lat = models.DecimalField(max_digits=12, decimal_places=6, null=True, blank=True)
+    lon = models.DecimalField(max_digits=12, decimal_places=6, null=True, blank=True)
     park = models.ForeignKey(Parking, on_delete=models.CASCADE)
 
     def __str__(self):

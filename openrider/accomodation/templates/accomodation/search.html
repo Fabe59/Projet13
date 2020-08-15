@@ -2,23 +2,26 @@
 
 {% block content %}
 
-<a href="{% url 'home' %}">Accueil</a>
+<div class="result_intro">Voici le resultat de la recherche pour la ville de {{ research }}:</div>
 
-<h1>Voici le resultat de la recherche pour la ville de {{ research }}:</h1>
+<div class="container">
 
-{% for elt in result %}
-    <ul class="result_elt">
-    <li class="name">{{ elt.name }}
-    <li>{{ elt.category }}
-    <li>{{ elt.park }}
-    <li>{{ elt.number }} {{ elt.road }}, {{ elt.zipcode }}, {{ elt.city }}
-    <li>{{ elt.phone }}
-    <li class="lat">{{ elt.lat }}
-    <li class="lon">{{ elt.lon }}
-    </li>
-    <hr>
-    </ul>
-{% endfor %}
-<div id="mapid"></div>
+    <div class="list">
+    {% for elt in final_result %}
+        <div class="result_elt">
+            <img src="https://via.placeholder.com/300x150" alt="#">
+            <div class="name">{{ elt.name }}</div>
+            <div>{{ elt.category }}</div>
+            <div>{{ elt.park }}</div>
+            <div>{{ elt.number }} {{ elt.road }}, {{ elt.zipcode }}, {{ elt.city }}</div>
+            <div>{{ elt.phone }}</div>
+            <div class="lat">{{ elt.lat }}</div>
+            <div class="lon">{{ elt.lon }}</div>
+        </div>
+    {% endfor %}
+    </div>
+    <div class="map" id="mapid"></div>   
+
+</div>
 <script type="text/javascript" src="/static/js/leafletmap.js"></script>
 {% endblock content %}

@@ -1,5 +1,47 @@
-#mapid { 
-    height: 300px;
-    width: 800px;
-    margin: auto;
+body {
+    font-family: sans-serif;
+}
+
+body .result_intro {
+    font-size: x-large;
+    padding: 30px 0px 30px 120px;
+}
+
+.container {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 6fr 5fr;
+}
+
+.list {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 30px;
+    padding: 0 30px;
+}
+
+.list .result_elt:hover {
+    box-shadow: 0 0 10px rgba(0,0,0, .3);
+    background-color: #ffffff;
+}
+
+.result_elt img {
+    display: block;
+    width: 100%;
+}
+
+.result_elt {
+    cursor: pointer;
+    transition: box-shadow .3s;
+    margin: 0 0 30px 0;
+}
+
+.map { 
+    background-color: #CCCCCC;
+    position: sticky!important; 
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 100vh;
 }
