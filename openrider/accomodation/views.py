@@ -8,7 +8,7 @@ from math import acos, cos, sin, radians
 @login_required
 def add(request):
     if request.method == "POST":
-        form = AddAccomodationForm(request.POST, request.FILES)
+        form = AddAccomodationForm(request.POST)
         if form.is_valid():
             new_add = form.save()
             return redirect()
