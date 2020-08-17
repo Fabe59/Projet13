@@ -8,9 +8,10 @@ from math import acos, cos, sin, radians
 @login_required
 def add(request):
     if request.method == "POST":
-        form = AddAccomodationForm(request.POST)
+        form = AddAccomodationForm(request.POST, request.FILES)
         if form.is_valid():
             new_add = form.save()
+            return redirect()
     else:
         form = AddAccomodationForm()
 
@@ -21,7 +22,7 @@ def search(request):
     research = request.GET['search']
 
     if not research:
-        return render(request, 'food/home.html')
+        return render(request, 'openrider/home.html')
 
     all_result = Accomodation.objects.all()
     url = "https://nominatim.openstreetmap.org/search/<query>?"
