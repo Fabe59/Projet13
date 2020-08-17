@@ -9,7 +9,7 @@
     <div class="list">
     {% for elt in final_result %}
         <div class="result_elt">
-            <a href="{% url 'accomodation:details' elt.auto_increment_id %}"><img src="{{ elt.image }}"></a>
+            <a href="{% url 'accomodation:details' elt.auto_increment_id %}"><img src="https://via.placeholder.com/300x150" alt="#"></a>
             <div class="name">{{ elt.name }}</div>
             <div hidden class="lat">{{ elt.lat }}</div>
             <div hidden class="lon">{{ elt.lon }}</div>

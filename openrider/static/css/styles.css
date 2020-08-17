@@ -6,6 +6,10 @@ body .result_intro {
     font-size: x-large;
 }
 
+.footer {
+    text-align: center;
+}
+
 .container {
     max-width: 100%;
     display: grid;

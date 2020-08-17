@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="result_intro">Fiche détaillé concernant le logement : {{ accomodation.name }}:</div>
+
+<div class="row">
+    <ul>
+        <li>{{ accomodation.name }}
+        <li>{{ accomodation.category }}
+        <li>{{ accomodation.park }}
+        <li>{{ accomodation.number }} {{ accomodation.road }}, {{ accomodation.zipcode }}, {{ accomodation.city }}
+        <li>{{ accomodation.phone }}
+        <li>{{ accomodation.lat }}
+        <li>{{ accomodation.lon }}
+    </ul>
+</div>
+
+{% endblock content %}
