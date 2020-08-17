@@ -4,7 +4,6 @@ body {
 
 body .result_intro {
     font-size: x-large;
-    padding: 30px 0px 30px 120px;
 }
 
 .container {
@@ -35,6 +34,10 @@ body .result_intro {
     cursor: pointer;
     transition: box-shadow .3s;
     margin: 0 0 30px 0;
+}
+
+.name {
+    text-align: center;
 }
 
 .map { 

@@ -57,3 +57,8 @@ def search(request):
             
         }
         )
+
+@login_required
+def details(request, id):
+    accomodation = Accomodation.objects.get(auto_increment_id=id)
+    return render(request, 'accomodation/details.html', {'accomodation': accomodation})

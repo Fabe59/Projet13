@@ -5,4 +5,5 @@ app_name = 'accomodation'
 urlpatterns = [
     path('add/', views.add, name="add"),
     path('search/', views.search, name="search"),
+    path('details/<int:id>', views.details, name="details"),
 ]

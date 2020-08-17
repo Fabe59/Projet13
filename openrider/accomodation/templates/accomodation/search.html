@@ -9,14 +9,10 @@
     <div class="list">
     {% for elt in final_result %}
         <div class="result_elt">
-            <img src="https://via.placeholder.com/300x150" alt="#">
+            <a href="{% url 'accomodation:details' elt.auto_increment_id %}"><img src="{{ elt.image }}"></a>
             <div class="name">{{ elt.name }}</div>
-            <div>{{ elt.category }}</div>
-            <div>{{ elt.park }}</div>
-            <div>{{ elt.number }} {{ elt.road }}, {{ elt.zipcode }}, {{ elt.city }}</div>
-            <div>{{ elt.phone }}</div>
-            <div class="lat">{{ elt.lat }}</div>
-            <div class="lon">{{ elt.lon }}</div>
+            <div hidden class="lat">{{ elt.lat }}</div>
+            <div hidden class="lon">{{ elt.lon }}</div>
         </div>
     {% endfor %}
     </div>

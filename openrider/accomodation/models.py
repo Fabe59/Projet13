@@ -25,7 +25,7 @@ class Accomodation(models.Model):
     city = models.CharField(max_length=200)
     phone = models.CharField(max_length=14)
     email = models.CharField(max_length=50)
-    url = models.CharField(max_length=200)
+    url = models.CharField(max_length=200, null=True, blank=True)
     lat = models.DecimalField(max_digits=12, decimal_places=6, null=True, blank=True)
     lon = models.DecimalField(max_digits=12, decimal_places=6, null=True, blank=True)
     park = models.ForeignKey(Parking, on_delete=models.CASCADE)
@@ -60,7 +60,7 @@ class AddAccomodation(models.Model):
     addAccomodation_city = models.CharField("Ville", max_length=50)
     addAccomodation_phone = models.BigIntegerField("Téléphone")
     addAccomodation_email = models.EmailField("Email")
-    addAccomodation_url = models.URLField("URL")
+    addAccomodation_url = models.URLField("URL", null=True, blank=True)
     addAccomodation_parking = models.CharField("Type de parking", choices=addAccomodation_parking_list, max_length=16)
     addAccomodation_statut = models.CharField("Statut de la demande", choices=addAccomodation_statut_list, max_length=16, default="Non_lu")
 
