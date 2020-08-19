@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
+from django.urls import reverse
+from django.conf import settings
 
 
 class Category(models.Model):
@@ -8,11 +9,36 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Parking(models.Model):
     parking = models.CharField(max_length=200, default=None)
 
     def __str__(self):
         return self.parking
+
+
+class AddAccomodation(models.Model):
+    addAccomodation_statut_list = (
+        ("Non_lu", "Non lu"),
+        ("Lu", "Lu"),
+        ("Archive", "Archivé"),
+    )
+    
+    addAccomodation_auto_increment_id = models.AutoField(primary_key=True)
+    addAccomodation_name = models.CharField("Nom", max_length=128)
+    addAccomodation_category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    addAccomodation_number = models.PositiveSmallIntegerField("Numéro", null=True, blank=True)
+    addAccomodation_road = models.CharField("Adresse", max_length=250)
+    addAccomodation_zipcode = models.PositiveIntegerField("Code Postal")
+    addAccomodation_city = models.CharField("Ville", max_length=50)
+    addAccomodation_phone = models.CharField("Téléphone", max_length=10)
+    addAccomodation_email = models.EmailField("Email")
+    addAccomodation_url = models.URLField("URL", null=True, blank=True)
+    addAccomodation_parking = models.ForeignKey(Parking, on_delete=models.CASCADE)
+    addAccomodation_statut = models.CharField("Statut de la demande", choices=addAccomodation_statut_list, max_length=16, default="Non_lu")
+
+    def __str__(self):
+        return '{}'.format(self.addAccomodation_name)
 
 
 class Accomodation(models.Model):
@@ -23,46 +49,25 @@ class Accomodation(models.Model):
     road = models.CharField(max_length=250)
     zipcode = models.PositiveIntegerField()
     city = models.CharField(max_length=200)
-    phone = models.CharField(max_length=14)
+    phone = models.CharField(max_length=10)
     email = models.CharField(max_length=50)
     url = models.CharField(max_length=250, null=True, blank=True)
+    park = models.ForeignKey(Parking, on_delete=models.CASCADE)
     lat = models.DecimalField(max_digits=12, decimal_places=6, null=True, blank=True)
     lon = models.DecimalField(max_digits=12, decimal_places=6, null=True, blank=True)
-    park = models.ForeignKey(Parking, on_delete=models.CASCADE)
+    
+    def get_absolute_url(self):
+        return reverse("accomodation:details", kwargs={"id": self.auto_increment_id})
 
     def __str__(self):
         return '{}, {}, {}, {} - {}, {}'.format(self.name, self.road, self.zipcode, self.city, self.lat, self.lon)
 
-class AddAccomodation(models.Model):
-    addAccomodation_category_list = (
-        ("hotel", "Hotel"),
-        ("gite", "Gite"),
-        ("bnb", "BnB"),
-    )
 
-    addAccomodation_parking_list = (
-        ("garage", "Garage"),
-        ("couvert", "Couvert"),
-        ("ferme", "Fermé"),
-    )
-
-    addAccomodation_statut_list = (
-        ("Non_lu", "Non lu"),
-        ("Lu", "Lu"),
-        ("Archive", "Archivé"),
-    )
-
-    addAccomodation_name = models.CharField("Nom", max_length=128)
-    addAccomodation_category = models.CharField("Catégorie", choices=addAccomodation_category_list, max_length=16)
-    addAccomodation_number = models.PositiveSmallIntegerField("Numéro", null=True, blank=True)
-    addAccomodation_road = models.CharField("Adresse", max_length=250)
-    addAccomodation_zipcode = models.PositiveIntegerField("Code Postal")
-    addAccomodation_city = models.CharField("Ville", max_length=50)
-    addAccomodation_phone = models.BigIntegerField("Téléphone")
-    addAccomodation_email = models.EmailField("Email")
-    addAccomodation_url = models.URLField("URL", null=True, blank=True)
-    addAccomodation_parking = models.CharField("Type de parking", choices=addAccomodation_parking_list, max_length=16)
-    addAccomodation_statut = models.CharField("Statut de la demande", choices=addAccomodation_statut_list, max_length=16, default="Non_lu")
+class Comment(models.Model):
+    accomodation = models.ForeignKey(Accomodation, on_delete=models.CASCADE)
+    user = user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    text = models.TextField("Commentaire", max_length=200)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return '{}'.format(self.addAccomodation_name)
+        return '{} - {} : {}'.format(self.user, self.accomodation.name, self.text)

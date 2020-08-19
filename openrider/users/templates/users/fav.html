@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Hebergement favoris</h1>
+
+{% for fav in accomodations_favs %}
+    <ul>
+        <li>{{ fav.name }}</li>
+        <li>{{ fav.category }}</li>
+        <li>{{ fav.park }}</li>
+        <li>{{ fav.number }} {{ fav.road }}, {{ fav.zipcode }}, {{ fav.city }}</li>
+        <li>{{ fav.phone }}</li>
+        <li>{{ fav.lat }}</li>
+        <li>{{ fav.lon }}</li>
+    </ul>
+    <form action="{% url 'users:delete_fav' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="fav_id" id="fav_id" value="{{ fav.auto_increment_id }}">
+        <button class="btn btn-primary" type="submit"> Supprimer</button>
+    </form>
+{% endfor %}
+
+{% endblock %}

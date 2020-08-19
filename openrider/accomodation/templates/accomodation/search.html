@@ -2,10 +2,11 @@
 
 {% block content %}
 
-<div class="result_intro">Voici le resultat de la recherche pour la ville de {{ research }}:</div>
+<div class="result_intro">
+    Resultat{{ final_result|pluralize }} à proximité de {{ research }}:
+</div>
 
 <div class="container">
-
     <div class="list">
     {% for elt in final_result %}
         <div class="result_elt">
@@ -17,7 +18,8 @@
     {% endfor %}
     </div>
     <div class="map" id="mapid"></div>   
-
 </div>
+
 <script type="text/javascript" src="/static/js/leafletmap.js"></script>
+
 {% endblock content %}

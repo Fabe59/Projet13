@@ -1,19 +1,42 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
-<div class="result_intro">Fiche détaillé concernant le logement : {{ accomodation.name }}:</div>
+<div class="result_intro">Fiche détaillée concernant le logement : {{ accomodation.name }}</div>
 
 <div class="row">
     <ul>
-        <li>{{ accomodation.name }}
-        <li>{{ accomodation.category }}
-        <li>{{ accomodation.park }}
-        <li>{{ accomodation.number }} {{ accomodation.road }}, {{ accomodation.zipcode }}, {{ accomodation.city }}
-        <li>{{ accomodation.phone }}
-        <li>{{ accomodation.lat }}
-        <li>{{ accomodation.lon }}
+        <li>{{ accomodation.name }}</li>
+        <li>{{ accomodation.category }}</li>
+        <li>{{ accomodation.park }}</li>
+        <li>{{ accomodation.number }} {{ accomodation.road }}, {{ accomodation.zipcode }}, {{ accomodation.city }}</li>
+        <li>{{ accomodation.phone }}</li>
+        <li>{{ accomodation.lat }}</li>
+        <li>{{ accomodation.lon }}</li>
+    <form action="{% url 'users:save' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="elt_id" id="elt_id" value="{{ accomodation.auto_increment_id }}"">
+        <input  type="submit" class="btn btn-primary" value="Sauvegarder">
+    </form>
     </ul>
+</div>
+<hr>
+<div>
+    <form class="comment_form" method="POST">
+        {% csrf_token %}
+        {{ comment_form|crispy}}
+        <input type="submit" value="Poster un commentaire" class="btn btn-outline-success">
+    </form>
+</div>
+<div class="comment-section">
+    {{ comments.count }} commentaire{{ comments|pluralize }}<br>
+    {% for comment in comments %}
+    <blockquote class="blockquote">
+        <p class="mb-0">{{ comment.text }}</p>
+        <footer class="blockquote-footer">by <cite title="Source Title">{{ comment.user }}</cite></footer>
+    </blockquote>
+    {% endfor %}
 </div>
 
 {% endblock content %}

@@ -4,14 +4,19 @@
         <a href="{% url 'home' %}">OpenRider</a>
     </div>
         
-    <div>
+    <div class="pb-5">
+        {% if user.is_superuser %}
+        <a class="" href="{% url 'accomodation:validation_waiting' %}">Admin</a>
+        {% endif %}
         {% if user.is_authenticated %}
-        <a class="nav-item nav-link" href="{% url 'users:profile' %}">Profile</a>
-        <a class="nav-item nav-link" href="{% url 'accomodation:add' %}">Add accomodation</a>
-        <a class="nav-item nav-link" href="{% url 'users:logout' %}">Se déconnecter</a>
+        <span>Hi {{ request.user }}</span><br>
+        <a class="" href="{% url 'users:profile' %}">Profile</a>
+        <a class="" href="{% url 'users:fav' %}">Favoris</a>
+        <a class="" href="{% url 'accomodation:add' %}">Add accomodation</a>
+        <a class="" href="{% url 'users:logout' %}">Se déconnecter</a>
         {% else %}
-        <a class="nav-item nav-link" href="{% url 'users:register' %}">Créer un compte</a>
-        <a class="nav-item nav-link" href="{% url 'users:login' %}">Se connecter</a>
+        <a class="" href="{% url 'users:register' %}">Créer un compte</a>
+        <a class="" href="{% url 'users:login' %}">Se connecter</a>
         {% endif %}
     </div>
 </nav>

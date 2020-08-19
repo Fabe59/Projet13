@@ -2,7 +2,7 @@ body {
     font-family: sans-serif;
 }
 
-body .result_intro {
+.result_intro {
     font-size: x-large;
 }
 
@@ -13,7 +13,7 @@ body .result_intro {
 .container {
     max-width: 100%;
     display: grid;
-    grid-template-columns: 6fr 5fr;
+    grid-template-columns: 5fr 6fr;
 }
 
 .list {
@@ -51,4 +51,8 @@ body .result_intro {
     right: 0;
     left: 0;
     height: 100vh;
+}
+
+.comment_form {
+    padding: 30px 200px 30px 200px;
 }

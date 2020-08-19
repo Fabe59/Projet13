@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="result_intro">
+    Page de validation
+</div>
+
+<div>
+    {% for elt in validation_waiting %}
+    <ul>
+        <li>{{ elt.addAccomodation_auto_increment_id }}</li>
+        <li>{{ elt.addAccomodation_name }}</li>
+        <li>{{ elt.addAccomodation_category }}</li>
+        <li>{{ elt.addAccomodation_parking }}</li>
+        <li>{{ elt.addAccomodation_number }} {{ elt.addAccomodation_road }}, {{ elt.addAccomodation_zipcode }}, {{ elt.addAccomodation_city }}</li>
+        <li>{{ elt.addAccomodation_phone }}</li>
+        <li>{{ elt.addAccomodation_email }}</li>
+        <li>{{ elt.addAccomodation_url }}</li>
+    </ul>
+    <form action="{% url 'accomodation:validation_checked' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="elt_id" id="elt_id" value="{{ elt.addAccomodation_auto_increment_id }}"">
+        <input  type="submit" class="btn btn-success" value="Valider">
+    </form>
+    <hr>
+    {% endfor %}
+</div>
+
+{% endblock content %}
