@@ -12,7 +12,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 @login_required
 def add(request):
     if request.method == "POST":
-        form = AddAccomodationForm(request.POST)
+        form = AddAccomodationForm(request.POST, request.FILES)
         if form.is_valid():
             new_add = form.save()
             return redirect('home')
@@ -109,6 +109,7 @@ def validation_checked(request):
             email = accomodation_checked.addAccomodation_email,
             url = accomodation_checked.addAccomodation_url,
             park = accomodation_checked.addAccomodation_parking,
+            image = accomodation_checked.addAccomodation_image,
             lat = accomodation_checked.lat,
             lon = accomodation_checked.lon,
             )

@@ -16,7 +16,8 @@ class AddAccomodationForm(ModelForm):
                 'addAccomodation_phone',
                 'addAccomodation_email',
                 'addAccomodation_url',
-                'addAccomodation_parking'
+                'addAccomodation_parking',
+                'addAccomodation_image',
                 ]
 
 class CommentForm(ModelForm):

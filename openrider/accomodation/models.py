@@ -34,6 +34,7 @@ class AddAccomodation(models.Model):
     addAccomodation_email = models.EmailField("Email")
     addAccomodation_url = models.URLField("URL", null=True, blank=True)
     addAccomodation_parking = models.ForeignKey(Parking, on_delete=models.CASCADE)
+    addAccomodation_image = models.ImageField('Image', null=True, blank=True, upload_to="accomodation/")
     addAccomodation_statut = models.CharField("Statut de la demande", choices=addAccomodation_statut_list, max_length=16, default="Non_lu")
 
     def __str__(self):
@@ -52,6 +53,7 @@ class Accomodation(models.Model):
     email = models.CharField(max_length=50)
     url = models.CharField(max_length=250, null=True, blank=True)
     park = models.ForeignKey(Parking, on_delete=models.CASCADE)
+    image = models.ImageField(null=True, blank=True)
     lat = models.DecimalField(max_digits=12, decimal_places=6, null=True, blank=True)
     lon = models.DecimalField(max_digits=12, decimal_places=6, null=True, blank=True)
     

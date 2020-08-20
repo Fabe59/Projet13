@@ -10,8 +10,8 @@
     <div class="list">
     {% for elt in final_result %}
         <div class="result_elt">
-            <a href="{% url 'accomodation:details' elt.auto_increment_id %}"><img src="https://via.placeholder.com/300x150" alt="#"></a>
-            <div class="name">{{ elt.name }}</div>
+            {% if elt.image %}<img src="{{ elt.image.url }}"" alt="{{ elt.name }}">{% endif %}
+            <a href="{% url 'accomodation:details' elt.auto_increment_id %}"><div class="name">{{ elt.name }}</div></a>
             <div hidden class="lat">{{ elt.lat }}</div>
             <div hidden class="lon">{{ elt.lon }}</div>
         </div>
