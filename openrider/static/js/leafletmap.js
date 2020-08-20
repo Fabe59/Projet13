@@ -6,7 +6,7 @@ let map = L.map('mapid');
 
 // Création et ajout du tyleLayer à la map
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 20,
+    maxZoom: 17,
 }).addTo(map);
 
 // Création des marqueurs
@@ -35,7 +35,7 @@ if (bounds.length >= 2) {
     map.fitBounds(bounds);
 }
 else {
-    map.setView([result_elt[0].querySelector('.lat').textContent.replace(",", "."), result_elt[0].querySelector('.lon').textContent.replace(",", ".")], 13);
+    map.setView([result_elt[0].querySelector('.lat').textContent.replace(",", "."), result_elt[0].querySelector('.lon').textContent.replace(",", ".")], 15);
 }
 
 //influence_coord = [result_elt[0].querySelector('.lat').textContent, result_elt[0].querySelector('.lon').textContent];

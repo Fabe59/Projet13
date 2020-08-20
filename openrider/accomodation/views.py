@@ -5,6 +5,7 @@ from .models import Accomodation, AddAccomodation ,Comment
 from .forms import AddAccomodationForm, CommentForm
 import requests
 from math import acos, cos, sin, radians
+from decimal import *
 from django.contrib.admin.views.decorators import staff_member_required
 
 
@@ -33,7 +34,7 @@ def search(request):
     if result:
         final_result = []
         for elt in all_result:
-            dist = 6371 * acos( cos( radians(float(result[0].lat)) ) * cos( radians(float(elt.lat)) ) * cos( radians(float(elt.lon)) - radians(float(result[0].lon)) ) + sin( radians(float(result[0].lat)) ) * sin( radians(float(elt.lat)) ) )
+            dist = 6371 * acos( cos( radians(Decimal(result[0].lat)) ) * cos( radians(Decimal(elt.lat)) ) * cos( radians(Decimal(elt.lon)) - radians(Decimal(result[0].lon)) ) + sin( radians(Decimal(result[0].lat)) ) * sin( radians(Decimal(elt.lat)) ) )
             if dist <= 5:
                 final_result.append(elt)
     
@@ -79,9 +80,14 @@ def validation_checked(request):
         accomodation = request.POST.get('elt_id')
         accomodation_checked = AddAccomodation.objects.get(addAccomodation_auto_increment_id=accomodation)
 
+        if accomodation_checked.addAccomodation_number is None:
+            street = accomodation_checked.addAccomodation_road
+        else:
+            street = ( str(accomodation_checked.addAccomodation_number) + ' ' + accomodation_checked.addAccomodation_road )
+
         url = "https://nominatim.openstreetmap.org/search/<query>?"
         params = {
-            "street": accomodation_checked.addAccomodation_road,
+            "street": street,
             "city": accomodation_checked.addAccomodation_city,
             "postalcode": accomodation_checked.addAccomodation_zipcode,
             "format": 'json',

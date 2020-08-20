@@ -10,7 +10,11 @@
         <li>{{ accomodation.name }}</li>
         <li>{{ accomodation.category }}</li>
         <li>{{ accomodation.park }}</li>
-        <li>{{ accomodation.number }} {{ accomodation.road }}, {{ accomodation.zipcode }}, {{ accomodation.city }}</li>
+        {% if accomodation.number %}
+            <li>{{ accomodation.number }} {{ accomodation.road }}, {{ accomodation.zipcode }}, {{ accomodation.city }}</li>
+        {% else %}
+            <li>{{ accomodation.road }}, {{ accomodation.zipcode }}, {{ accomodation.city }}</li>
+        {% endif %}
         <li>{{ accomodation.phone }}</li>
         <li>{{ accomodation.lat }}</li>
         <li>{{ accomodation.lon }}</li>
