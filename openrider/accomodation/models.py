@@ -20,7 +20,6 @@ class Parking(models.Model):
 class AddAccomodation(models.Model):
     addAccomodation_statut_list = (
         ("Non_lu", "Non lu"),
-        ("Lu", "Lu"),
         ("Archive", "Archivé"),
     )
     
@@ -60,7 +59,7 @@ class Accomodation(models.Model):
         return reverse("accomodation:details", kwargs={"id": self.auto_increment_id})
 
     def __str__(self):
-        return '{}, {}, {}, {} - {}, {}'.format(self.name, self.road, self.zipcode, self.city, self.lat, self.lon)
+        return '{}, {} {}, {}, {} - {}, {}'.format(self.name, self.number, self.road, self.zipcode, self.city, self.lat, self.lon)
 
 
 class Comment(models.Model):

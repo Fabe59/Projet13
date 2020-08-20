@@ -2,6 +2,10 @@ body {
     font-family: sans-serif;
 }
 
+.nav-item {
+    padding-right: 30px;
+}
+
 .result_intro {
     font-size: x-large;
 }

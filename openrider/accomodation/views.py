@@ -28,22 +28,6 @@ def search(request):
         return render(request, 'openrider/home.html')
 
     all_result = Accomodation.objects.all()
-    url = "https://nominatim.openstreetmap.org/search/<query>?"
-    for elt in all_result:
-        params = {
-            "street": elt.road,
-            "city": elt.city,
-            "postalcode": elt.zipcode,
-            "format": 'json',
-        }
-        req = requests.get(url, params)
-        data = req.json()
-        
-        element = Accomodation.objects.get(auto_increment_id=elt.auto_increment_id)
-        elt.lat = data[0]['lat']
-        elt.lon = data[0]['lon']
-        elt.save()
-
     result = Accomodation.objects.filter(city__contains=research)
     
     if result:
@@ -94,6 +78,20 @@ def validation_checked(request):
     if request.method == 'POST':
         accomodation = request.POST.get('elt_id')
         accomodation_checked = AddAccomodation.objects.get(addAccomodation_auto_increment_id=accomodation)
+
+        url = "https://nominatim.openstreetmap.org/search/<query>?"
+        params = {
+            "street": accomodation_checked.addAccomodation_road,
+            "city": accomodation_checked.addAccomodation_city,
+            "postalcode": accomodation_checked.addAccomodation_zipcode,
+            "format": 'json',
+        }
+        req = requests.get(url, params)
+        data = req.json()
+        accomodation_checked.lat = data[0]['lat']
+        accomodation_checked.lon = data[0]['lon']
+        accomodation_checked.save()
+
         new_accommodation = Accomodation.objects.get_or_create(
             name = accomodation_checked.addAccomodation_name,
             category = accomodation_checked.addAccomodation_category,
@@ -105,8 +103,19 @@ def validation_checked(request):
             email = accomodation_checked.addAccomodation_email,
             url = accomodation_checked.addAccomodation_url,
             park = accomodation_checked.addAccomodation_parking,
+            lat = accomodation_checked.lat,
+            lon = accomodation_checked.lon,
             )
         accomodation_checked.delete()
     
+    return redirect('accomodation:validation_waiting')
+
+@staff_member_required
+def validation_refused(request):
+    if request.method == 'POST':
+        accomodation = request.POST.get('elt_id')
+        accomodation_checked = AddAccomodation.objects.get(addAccomodation_auto_increment_id=accomodation)
+        accomodation_checked.delete()
+
     return redirect('accomodation:validation_waiting')
 

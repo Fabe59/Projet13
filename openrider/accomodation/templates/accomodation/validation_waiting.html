@@ -9,7 +9,6 @@
 <div>
     {% for elt in validation_waiting %}
     <ul>
-        <li>{{ elt.addAccomodation_auto_increment_id }}</li>
         <li>{{ elt.addAccomodation_name }}</li>
         <li>{{ elt.addAccomodation_category }}</li>
         <li>{{ elt.addAccomodation_parking }}</li>
@@ -22,6 +21,11 @@
         {% csrf_token %}
         <input type="hidden" name="elt_id" id="elt_id" value="{{ elt.addAccomodation_auto_increment_id }}"">
         <input  type="submit" class="btn btn-success" value="Valider">
+    </form>
+    <form action="{% url 'accomodation:validation_refused' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="elt_id" id="elt_id" value="{{ elt.addAccomodation_auto_increment_id }}"">
+        <input  type="submit" class="btn btn-danger" value="Refuser">
     </form>
     <hr>
     {% endfor %}

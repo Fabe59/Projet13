@@ -12,10 +12,11 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // Création des marqueurs
 let result_elt = document.querySelectorAll('.result_elt');
 for (var i = 0; i < result_elt.length; i++) {
-    let lat = result_elt[i].querySelector('.lat').textContent
-    let lon = result_elt[i].querySelector('.lon').textContent
+    let lat = (result_elt[i].querySelector('.lat').textContent).replace(",", ".")
+    let lon = (result_elt[i].querySelector('.lon').textContent).replace(",", ".")
     let name = result_elt[i].querySelector('.name').textContent
     let coord = [lat, lon]
+    console.log(coord)
     bounds.push(coord)
     L.marker(coord).setLatLng(coord).addTo(map).bindPopup(name);
     //L.popup({
@@ -34,7 +35,7 @@ if (bounds.length >= 2) {
     map.fitBounds(bounds);
 }
 else {
-    map.setView([result_elt[0].querySelector('.lat').textContent, result_elt[0].querySelector('.lon').textContent], 13);
+    map.setView([result_elt[0].querySelector('.lat').textContent.replace(",", "."), result_elt[0].querySelector('.lon').textContent.replace(",", ".")], 13);
 }
 
 //influence_coord = [result_elt[0].querySelector('.lat').textContent, result_elt[0].querySelector('.lon').textContent];
