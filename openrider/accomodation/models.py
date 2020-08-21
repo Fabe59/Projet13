@@ -54,8 +54,8 @@ class Accomodation(models.Model):
     url = models.CharField(max_length=250, null=True, blank=True)
     park = models.ForeignKey(Parking, on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank=True)
-    lat = models.DecimalField(max_digits=12, decimal_places=6, null=True, blank=True)
-    lon = models.DecimalField(max_digits=12, decimal_places=6, null=True, blank=True)
+    lat = models.DecimalField(max_digits=12, decimal_places=7, null=True, blank=True)
+    lon = models.DecimalField(max_digits=12, decimal_places=7, null=True, blank=True)
     
     def get_absolute_url(self):
         return reverse("accomodation:details", kwargs={"id": self.auto_increment_id})

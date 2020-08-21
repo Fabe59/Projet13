@@ -98,22 +98,30 @@ def validation_checked(request):
         accomodation_checked.lon = data[0]['lon']
         accomodation_checked.save()
 
-        new_accommodation = Accomodation.objects.get_or_create(
-            name = accomodation_checked.addAccomodation_name,
-            category = accomodation_checked.addAccomodation_category,
-            number = accomodation_checked.addAccomodation_number,
-            road = accomodation_checked.addAccomodation_road,
-            zipcode = accomodation_checked.addAccomodation_zipcode,
-            city = accomodation_checked.addAccomodation_city,
-            phone = accomodation_checked.addAccomodation_phone,
-            email = accomodation_checked.addAccomodation_email,
-            url = accomodation_checked.addAccomodation_url,
-            park = accomodation_checked.addAccomodation_parking,
-            image = accomodation_checked.addAccomodation_image,
-            lat = accomodation_checked.lat,
-            lon = accomodation_checked.lon,
-            )
-        accomodation_checked.delete()
+        print(accomodation_checked.lat)
+        print(accomodation_checked.lon)
+        verify = Accomodation.objects.filter(lat=accomodation_checked.lat).filter(lon=accomodation_checked.lon)
+        print(verify)
+        if not verify:
+            new_accommodation = Accomodation(
+                name = accomodation_checked.addAccomodation_name,
+                category = accomodation_checked.addAccomodation_category,
+                number = accomodation_checked.addAccomodation_number,
+                road = accomodation_checked.addAccomodation_road,
+                zipcode = accomodation_checked.addAccomodation_zipcode,
+                city = accomodation_checked.addAccomodation_city,
+                phone = accomodation_checked.addAccomodation_phone,
+                email = accomodation_checked.addAccomodation_email,
+                url = accomodation_checked.addAccomodation_url,
+                park = accomodation_checked.addAccomodation_parking,
+                image = accomodation_checked.addAccomodation_image,
+                lat = accomodation_checked.lat,
+                lon = accomodation_checked.lon,
+                )
+            new_accommodation.save()
+            accomodation_checked.delete()
+        elif verify:
+            accomodation_checked.delete()
     
     return redirect('accomodation:validation_waiting')
 
