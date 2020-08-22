@@ -94,8 +94,8 @@ def validation_checked(request):
         }
         req = requests.get(url, params)
         data = req.json()
-        accomodation_checked.lat = data[0]['lat']
-        accomodation_checked.lon = data[0]['lon']
+        accomodation_checked.lat = round(Decimal(data[0]['lat']), 6)
+        accomodation_checked.lon = round(Decimal(data[0]['lon']), 6)
         accomodation_checked.save()
 
         print(accomodation_checked.lat)
