@@ -16,6 +16,9 @@
             <li>{{ accomodation.road }}, {{ accomodation.zipcode }}, {{ accomodation.city }}</li>
         {% endif %}
         <li>{{ accomodation.phone }}</li>
+        {% if accomodation.url %}
+            <li>{{ accomodation.url }}</li>
+        {% endif %}
         <li>{{ accomodation.lat }}</li>
         <li>{{ accomodation.lon }}</li>
     <form action="{% url 'users:save' %}" method="POST">
@@ -30,6 +33,7 @@
     <form class="comment_form" method="POST">
         {% csrf_token %}
         {{ comment_form|crispy}}
+        <div class="g-recaptcha" data-sitekey="6Ld7DMMZAAAAALn1dm7ne2ZCh382rwrhVaomiMq_"></div>
         <input type="submit" value="Poster un commentaire" class="btn btn-outline-success">
     </form>
 </div>
@@ -38,7 +42,7 @@
     {% for comment in comments %}
     <blockquote class="blockquote">
         <p class="mb-0">{{ comment.text }}</p>
-        <footer class="blockquote-footer">by <cite title="Source Title">{{ comment.user }}</cite></footer>
+        <footer class="blockquote-footer">by <cite title="Source Title">{{ comment.user }} - {{ comment.timestamp }}</cite></footer>
     </blockquote>
     {% endfor %}
 </div>

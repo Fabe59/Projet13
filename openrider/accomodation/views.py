@@ -3,10 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from .models import Accomodation, AddAccomodation ,Comment
 from .forms import AddAccomodationForm, CommentForm
-import requests
+import requests, json, urllib
 from math import acos, cos, sin, radians
 from decimal import *
 from django.contrib.admin.views.decorators import staff_member_required
+from django.conf import settings
+from django.contrib import messages
 
 
 @login_required
@@ -55,16 +57,33 @@ def search(request):
 def details(request, id):
     accomodation = Accomodation.objects.get(auto_increment_id=id)
     comments = Comment.objects.filter(accomodation=accomodation)
+    comment_form = CommentForm()
 
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
-            text = request.POST.get('text')
-            comment = Comment.objects.create(accomodation=accomodation, user=request.user, text=text)
-            comment.save()
-            return HttpResponseRedirect(accomodation.get_absolute_url())
-    else:
-        comment_form = CommentForm()
+
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
+            data = urllib.parse.urlencode(values).encode()
+            req =  urllib.request.Request(url, data=data)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
+ 
+            if result['success']:
+                text = request.POST.get('text')
+                comment = Comment.objects.create(accomodation=accomodation, user=request.user, text=text)
+                comment.save()
+                messages.success(request, 'New comment added with success!')
+                return HttpResponseRedirect(accomodation.get_absolute_url())
+            else:
+                messages.warning(request, 'Invalid reCAPTCHA. Please try again.')
+        else:
+            comment_form = CommentForm()
 
     return render(request, 'accomodation/details.html', {'accomodation': accomodation, 'comments': comments, 'comment_form': comment_form})
 

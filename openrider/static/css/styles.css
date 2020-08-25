@@ -39,7 +39,7 @@ body {
 }
 
 .result_elt {
-    height: 250px;
+    height: 280px;
     cursor: pointer;
     transition: box-shadow .3s;
     margin: 0 0 30px 0;
@@ -56,6 +56,19 @@ body {
     right: 0;
     left: 0;
     height: 100vh;
+}
+
+.leaflet-popup-content {
+    margin: 4px 8px;
+}
+
+.leaflet-popup-content-wrapper {
+    text-align: center;
+    font-weight: bold;
+}
+
+.is-active .leaflet-popup-content-wrapper {
+    background-color: rgb(61, 146, 224);
 }
 
 .comment_form {

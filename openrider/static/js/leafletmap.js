@@ -16,19 +16,23 @@ for (var i = 0; i < result_elt.length; i++) {
     let lon = (result_elt[i].querySelector('.lon').textContent).replace(",", ".")
     let name = result_elt[i].querySelector('.name').textContent
     let coord = [lat, lon]
-    console.log(coord)
     bounds.push(coord)
-    L.marker(coord).setLatLng(coord).addTo(map).bindPopup(name);
-    //L.popup({
-    //    closeButton: false,
-    //    closeOnEscapeKey: false,
-    //    closeOnClick: false,
-    //    autoClose: false,
-    //})
-    //.setLatLng(coord)
-    //.setContent(name)
-    //.addTo(map)
-  }
+    let popup = L.popup({
+        closeButton: false,
+        closeOnEscapeKey: false,
+        closeOnClick: false,
+        autoClose: false,
+    })
+    .setLatLng(coord)
+    .setContent(name)
+    .addTo(map)
+    result_elt[i].addEventListener('mouseover', function() {
+        popup.getElement().classList.add('is-active')
+    })
+    result_elt[i].addEventListener('mouseleave', function() {
+        popup.getElement().classList.remove('is-active')
+    })
+  };
 
 // Centrage dynamique de la carte
 if (bounds.length >= 2) {
@@ -36,14 +40,5 @@ if (bounds.length >= 2) {
 }
 else {
     map.setView([result_elt[0].querySelector('.lat').textContent.replace(",", "."), result_elt[0].querySelector('.lon').textContent.replace(",", ".")], 15);
-}
-
-//influence_coord = [result_elt[0].querySelector('.lat').textContent, result_elt[0].querySelector('.lon').textContent];
-//L.circle(influence_coord, 3000).addTo(map)
-
-
-
-
-
-
+};
 
