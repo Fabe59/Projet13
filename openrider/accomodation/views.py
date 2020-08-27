@@ -176,8 +176,8 @@ def validation_refused(request):
 def geoloc(request):
     coord = request.GET['coord']
     coord_user = json.loads(coord)
-    lat = round(Decimal(coord_user[0]), 6)
-    lon = round(Decimal(coord_user[1]), 6)
+    lat = coord_user[0]
+    lon = coord_user[1]
 
     all_result = Accomodation.objects.all()
     final_result = []

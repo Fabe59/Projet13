@@ -4,7 +4,6 @@ navigator.geolocation.getCurrentPosition(onSuccess, onError);
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
         const coord = [lat, lon]
-        console.log(coord)
         coords = JSON.stringify(coord)
         document.getElementById("js_data_input").value = coords;
 
