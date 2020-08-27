@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -56,7 +57,11 @@ class Accomodation(models.Model):
     image = models.ImageField(null=True, blank=True)
     lat = models.DecimalField(max_digits=11, decimal_places=6, null=True, blank=True)
     lon = models.DecimalField(max_digits=11, decimal_places=6, null=True, blank=True)
+    likes = models.ManyToManyField(User, related_name='likes', blank=True)
     
+    def total_likes(self):
+        return self.likes.count()
+
     def get_absolute_url(self):
         return reverse("accomodation:details", kwargs={"id": self.auto_increment_id})
 
@@ -66,9 +71,11 @@ class Accomodation(models.Model):
 
 class Comment(models.Model):
     accomodation = models.ForeignKey(Accomodation, on_delete=models.CASCADE)
-    user = user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     text = models.TextField("Commentaire", max_length=200)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return '{} - {} : {}'.format(self.user, self.accomodation.name, self.text)
+
+

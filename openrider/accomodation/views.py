@@ -28,7 +28,7 @@ def search(request):
     research = request.GET['search']
 
     if not research:
-        return render(request, 'openrider/home.html')
+        return redirect('home')
 
     all_result = Accomodation.objects.all()
     result = Accomodation.objects.filter(city__contains=research)
@@ -56,6 +56,9 @@ def search(request):
 @login_required
 def details(request, id):
     accomodation = Accomodation.objects.get(auto_increment_id=id)
+    is_liked = False
+    if accomodation.likes.filter(id=request.user.id).exists():
+        is_liked = True
     comments = Comment.objects.filter(accomodation=accomodation)
     comment_form = CommentForm()
 
@@ -85,7 +88,23 @@ def details(request, id):
         else:
             comment_form = CommentForm()
 
-    return render(request, 'accomodation/details.html', {'accomodation': accomodation, 'comments': comments, 'comment_form': comment_form})
+    return render(request, 'accomodation/details.html', {'accomodation': accomodation, 'is_liked': is_liked, 'total_likes': accomodation.total_likes() ,'comments': comments, 'comment_form': comment_form})
+
+
+@login_required
+def like(request):
+    if request.method == "POST":
+        current_user = request.user
+        accomodation = request.POST.get('elt_id')
+        accomodation_like = Accomodation.objects.get(auto_increment_id=accomodation)
+        is_liked = False
+        if accomodation_like.likes.filter(id=current_user.id).exists():
+            accomodation_like.likes.remove(current_user)
+            is_liked = False
+        else :
+            accomodation_like.likes.add(current_user)
+            is_liked = True
+        return HttpResponseRedirect(accomodation_like.get_absolute_url())
 
 @staff_member_required
 def validation_waiting(request):

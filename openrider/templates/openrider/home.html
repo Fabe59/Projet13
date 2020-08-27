@@ -2,10 +2,19 @@
 
 {% block content %}
 <div>
+    <li>OpenRider référence {{ accomodation_total }} logement{{ accomodation_total|pluralize }}.</li>
+    <li>{{ accomodation_comment_total }} commentaire{{ accomodation_comment_total|pluralize }} ont été laissés.</li>
+    <li>La communauté OpenRider compte {{ users_total }} utilisateur{{ users_total|pluralize }} à ce jour.</li>
+</div>
+<div>
     <p>Trouvez un hebergement</p>
     <form action="{% url 'accomodation:search' %}" method="GET">
         <input  type="search" name="search" placeholder="Entrez le nom d'une ville ?" autofocus>
         <input  type="submit" value="Lancer la recherche">
     </form>
 </div>
+<div id="user_coordinate">
+
+</div>
+
 {% endblock content%}
