@@ -9,12 +9,16 @@
 <div>
     <p>Trouvez un hebergement</p>
     <form action="{% url 'accomodation:search' %}" method="GET">
-        <input  type="search" name="search" placeholder="Entrez le nom d'une ville ?" autofocus>
-        <input  type="submit" value="Lancer la recherche">
+        <input type="search" name="search" placeholder="Entrez le nom d'une ville ?" autofocus>
+        <input type="submit" value="Lancer la recherche">
+    </form>
+    <form action="{% url 'accomodation:geoloc' %}" method="GET">
+        <input type="hidden" name="coord" value="" id="js_data_input">
+        <div id="geolocform">
+        </div>
     </form>
 </div>
-<div id="user_coordinate">
 
-</div>
+<script type="text/javascript" src="/static/js/geoloc.js"></script>
 
 {% endblock content%}

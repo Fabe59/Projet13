@@ -51,7 +51,7 @@ def search(request):
     
     else:
         result = None
-        return redirect('home')
+        return render(request, 'accomodation/noresult.html')
 
 @login_required
 def details(request, id):
@@ -172,3 +172,20 @@ def validation_refused(request):
 
     return redirect('accomodation:validation_waiting')
 
+@login_required
+def geoloc(request):
+    coord = request.GET['coord']
+    coord_user = json.loads(coord)
+    lat = round(Decimal(coord_user[0]), 6)
+    lon = round(Decimal(coord_user[1]), 6)
+
+    all_result = Accomodation.objects.all()
+    final_result = []
+    for elt in all_result:
+        dist = 6371 * acos( cos( radians(Decimal(lat)) ) * cos( radians(Decimal(elt.lat)) ) * cos( radians(Decimal(elt.lon)) - radians(Decimal(lon)) ) + sin( radians(Decimal(lat)) ) * sin( radians(Decimal(elt.lat)) ) )
+        if dist <= 5:
+            final_result.append(elt)
+    if not final_result:
+        return render(request, 'accomodation/noresult.html')
+    
+    return render(request, 'accomodation/geoloc.html', {'final_result': final_result})
