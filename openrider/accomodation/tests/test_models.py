@@ -1,5 +1,5 @@
 from django.test import TestCase
-from accomodation.models import Category, Parking, AddAccomodation, Accomodation
+from accomodation.models import Category, Parking, AddAccomodation, Accomodation, Comment
 from django.contrib.auth.models import User
 from django.urls import reverse
 
@@ -10,16 +10,12 @@ class ModelsTest(TestCase):
         cat = Category.objects.create(name='gite')
         self.assertEqual(Category.objects.first(), cat)
 
-    def test_cat_string_representation(self):
-        cat = Category.objects.create(name='gite')
         self.assertEqual(str(cat), 'gite')
 
     def test_parking_model(self):
         parking = Parking.objects.create(parking='clos')
         self.assertEqual(Parking.objects.first(), parking)
 
-    def test_parking_string_representation(self):
-        parking = Parking.objects.create(parking='clos')
         self.assertEqual(str(parking), 'clos')
 
     def test_model(self):
@@ -48,21 +44,6 @@ class ModelsTest(TestCase):
         self.assertEqual(addAccomodation.addAccomodation_description, "Très bien!")
         self.assertEqual(addAccomodation.addAccomodation_statut, "Non_lu")
 
-    def test_string_representation(self):
-        category = Category.objects.create(name="gite")
-        parking = Parking.objects.create(parking='clos')
-        addAccomodation = AddAccomodation.objects.create(
-            addAccomodation_name = "Treulan",
-            addAccomodation_category = category,
-            addAccomodation_road = "rue du pont",
-            addAccomodation_zipcode = "56400",
-            addAccomodation_city = "Auray",
-            addAccomodation_phone = "0652535455",
-            addAccomodation_email = "test@test.fr",
-            addAccomodation_parking = parking,
-            addAccomodation_description = "Très bien!",
-            addAccomodation_statut = "Non_lu"
-        )
         self.assertEqual(str(addAccomodation), "Treulan")
     
     def test_Accomodation_model(self):
@@ -103,13 +84,20 @@ class ModelsTest(TestCase):
         self.assertEqual(accomodation.lon, "2.353637")
         self.assertEqual(liked, utilisateur)
 
-    def test_Accomodation_get_absolute_url(self):
         redirect = self.client.get(reverse('accomodation:details', args=['7']))
         self.assertEqual(redirect.status_code, 302)
 
-    def test_Accomodation_str_representation(self):
+        self.assertEqual(str(accomodation), "Treulan, None rue du pont, 56400, Auray - 42.121314, 2.353637")
+
+    def test_Comment_model(self):
         category = Category.objects.create(name="gite")
         parking = Parking.objects.create(parking='clos')
+        user = User.objects.create_user(
+            username="UtilisateurTest",
+            first_name="utilisateur",
+            last_name="Test",
+            password="Azertyui4552"
+        )
         accomodation = Accomodation.objects.create(
             name = "Treulan",
             category = category,
@@ -123,4 +111,10 @@ class ModelsTest(TestCase):
             lat= '42.121314',
             lon= '2.353637',
         )
-        self.assertEqual(str(accomodation), "Treulan, None rue du pont, 56400, Auray - 42.121314, 2.353637")
+        comment = Comment.objects.create(accomodation=accomodation, user=user, text="cool")
+        acc = Accomodation.objects.get(name="Treulan")
+        usr = User.objects.get(username="UtilisateurTest")
+        self.assertEqual(comment.accomodation, acc)
+        self.assertEqual(comment.user, usr)
+        self.assertEqual(comment.text, "cool")
+        self.assertEqual(str(comment), "UtilisateurTest - Treulan : cool")
