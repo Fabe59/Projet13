@@ -1,24 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div>
-    <li>OpenRider référence {{ accomodation_total }} logement{{ accomodation_total|pluralize }}.</li>
-    <li>{{ accomodation_comment_total }} commentaire{{ accomodation_comment_total|pluralize }} ont été laissés.</li>
-    <li>La communauté OpenRider compte {{ users_total }} utilisateur{{ users_total|pluralize }} à ce jour.</li>
-</div>
-<div>
-    <p>Trouvez un hebergement</p>
-    <form action="{% url 'accomodation:search' %}" method="GET">
-        <input type="search" name="search" placeholder="Entrez le nom d'une ville ?" autofocus>
-        <input type="submit" value="Lancer la recherche">
-    </form>
-    <form action="{% url 'accomodation:geoloc' %}" method="GET">
-        <input type="hidden" name="coord" value="" id="js_data_input">
-        <div id="geolocform">
-        </div>
-    </form>
-</div>
+<header>
+    <ul>
+        <li>OpenRider référence {{ accomodation_total }} hébergement{{ accomodation_total|pluralize }}.</li>
+        <li>{{ accomodation_comment_total }} commentaire{{ accomodation_comment_total|pluralize }} laissé(s)</li>
+        <li>La communauté OpenRider compte {{ users_total }} utilisateur{{ users_total|pluralize }} à ce jour.</li>
+        </ul>
+</header>
+<section>
+    <div>
+        <p>Trouvez un hebergement</p>
+        <form action="{% url 'accomodation:search' %}" method="GET">
+            <input type="search" name="search" placeholder="Entrez le nom d'une ville ?" autofocus>
+            <input type="submit" value="Lancer la recherche">
+        </form>
+        <form action="{% url 'accomodation:geoloc' %}" method="GET">
+            <input type="hidden" name="coord" value="" id="js_data_input">
+            <div id="geolocform">
+            </div>
+        </form>
+    </div>
+</section>
 
 <script type="text/javascript" src="/static/js/geoloc.js"></script>
 
-{% endblock content%}
+{% endblock %}

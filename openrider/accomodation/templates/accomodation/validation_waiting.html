@@ -16,6 +16,7 @@
         <li>{{ elt.addAccomodation_phone }}</li>
         <li>{{ elt.addAccomodation_email }}</li>
         <li>{{ elt.addAccomodation_url }}</li>
+        <li>{{ elt.addAccomodation_description }}</li>
     </ul>
     <form action="{% url 'accomodation:validation_checked' %}" method="POST">
         {% csrf_token %}

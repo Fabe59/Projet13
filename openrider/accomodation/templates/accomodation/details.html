@@ -15,9 +15,10 @@
         {% else %}
             <li>{{ accomodation.road }}, {{ accomodation.zipcode }}, {{ accomodation.city }}</li>
         {% endif %}
+        <li>{{ accomodation.description }}</li>
         <li>{{ accomodation.phone }}</li>
         {% if accomodation.url %}
-            <li>{{ accomodation.url }}</li>
+            <li><a href="{{ accomodation.url }}" target="_blank">Lien vers le site de cet hebergement</a></li>
         {% endif %}
         <li>{{ accomodation.lat }}</li>
         <li>{{ accomodation.lon }}</li>

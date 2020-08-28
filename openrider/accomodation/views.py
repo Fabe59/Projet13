@@ -153,6 +153,7 @@ def validation_checked(request):
                 url = accomodation_checked.addAccomodation_url,
                 park = accomodation_checked.addAccomodation_parking,
                 image = accomodation_checked.addAccomodation_image,
+                description = accomodation_checked.addAccomodation_description,
                 lat = accomodation_checked.lat,
                 lon = accomodation_checked.lon,
                 )

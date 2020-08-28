@@ -36,6 +36,7 @@ class AddAccomodation(models.Model):
     addAccomodation_url = models.URLField("URL", null=True, blank=True)
     addAccomodation_parking = models.ForeignKey(Parking, on_delete=models.CASCADE)
     addAccomodation_image = models.ImageField('Image', null=True, blank=True, upload_to="accomodation/", default="default_accomodation_image.jpg")
+    addAccomodation_description = models.CharField('Description', max_length=250)
     addAccomodation_statut = models.CharField("Statut de la demande", choices=addAccomodation_statut_list, max_length=16, default="Non_lu")
 
     def __str__(self):
@@ -55,6 +56,7 @@ class Accomodation(models.Model):
     url = models.CharField(max_length=250, null=True, blank=True)
     park = models.ForeignKey(Parking, on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank=True)
+    description = models.CharField(max_length=250)
     lat = models.DecimalField(max_digits=11, decimal_places=6, null=True, blank=True)
     lon = models.DecimalField(max_digits=11, decimal_places=6, null=True, blank=True)
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
