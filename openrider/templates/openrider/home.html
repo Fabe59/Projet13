@@ -1,7 +1,8 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<header>
+<!--<header>
     <ul>
         <li>OpenRider référence {{ accomodation_total }} hébergement{{ accomodation_total|pluralize }}.</li>
         <li>{{ accomodation_comment_total }} commentaire{{ accomodation_comment_total|pluralize }} laissé(s)</li>
@@ -20,6 +21,68 @@
             <div id="geolocform">
             </div>
         </form>
+    </div>
+</section>-->
+<header class="masthead d-flex">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-center text-center">
+            <div class="col-lg-10 align-self-end">
+                <h1 class="text-white font-weight-bold">OpenRider : l'hébergement motard</h1>
+                <hr class="divider my-4" />
+            </div>
+            <div class="col-lg-8 align-self-baseline">
+                <p class="text-white-75 font-weight-light mb-5">Trouvez un logement confortable pour vous et votre moto</p>
+                <form class="d-flex justify-content-center" action="{% url 'accomodation:search' %}" method="GET">
+                    <input type="search" name="search" id="searchbox" class="col-md-6 form-inline input-group" placeholder="Entrez le nom d'une ville" autofocus>
+                    <input class="btn btn-primary btn-xl js-scroll-trigger" type="submit" value="Lancer la recherche">
+                </form>
+                <form action="{% url 'accomodation:geoloc' %}" method="GET">
+                    <input type="hidden" name="coord" value="" id="js_data_input">
+                    <div id="geolocform">
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-8 align-self-baseline">
+                <p class="text-white-75 font-weight-light mb-2">OpenRider référence {{ accomodation_total }} hébergement{{ accomodation_total|pluralize }}.</p>
+                <p class="text-white-75 font-weight-light mb-2">{{ accomodation_comment_total }} commentaire{{ accomodation_comment_total|pluralize }} laissé(s)</p>
+                <p class="text-white-75 font-weight-light mb-2">La communauté OpenRider compte {{ users_total }} utilisateur{{ users_total|pluralize }} à ce jour.</p>
+            </div>
+        </div>
+    </div>
+</header>
+<section class="page-section bg-primary d-flex" id="about">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="text-white mt-0">OpenRider: c'est quoi?</h2>
+                <hr class="divider my-4" />
+                <p class="text-white-80">OpenRider est une plateforme 100% communautaire permetttant aux motards visitant (ou traversant) la France de trouver un hébergement qui répond à leurs besoins.
+                    OpenRider n'a aucune vocation commerciale.
+                    Ce site vivra et grandira grâce à vous. C'est vous qui nous soumettrez des hebergements afin d'étendre l'offre disponible.  
+                    OpenRider a pour unique but de centraliser une offre d'hébergements adapatés pour recevoir le pilote ET sa machine dans les meilleures conditions. 
+                    C'est pourquoi, un des critères de référencement est le type de parking.
+                    Dans tous les hebergements, vous retrouverez ce dernier. Il peut être de différents types : garage, couvert ou fermé. 
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<div id="hr-home"></div>
+<section class="page-section d-flex" id="contact">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="mt-0">Contactez-nous !</h2>
+                <hr class="divider my-4" />
+                <p class="mb-5">Un question? Des suggestions? N'hésitez pas à nous contacter.</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-4 text-center">
+                <i class="far fa-envelope fa-3x mb-3"></i>
+                <a class="d-block" href="mailto:openrider@gmail.com"> openrider@gmail.com</a>
+            </div>
+        </div>
     </div>
 </section>
 

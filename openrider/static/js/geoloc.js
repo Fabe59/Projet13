@@ -8,7 +8,8 @@ navigator.geolocation.getCurrentPosition(onSuccess, onError);
         document.getElementById("js_data_input").value = coords;
 
         let newInput = document.createElement('button');
-        newInput.innerHTML = "Geolocaliser";
+        newInput.innerHTML = "Me Géolocaliser";
+        newInput.classList.add("geoloc");
         let parentNode = document.getElementById('geolocform');
         parentNode.appendChild(newInput)
         

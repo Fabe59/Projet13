@@ -136,10 +136,7 @@ def validation_checked(request):
         accomodation_checked.lon = round(Decimal(data[0]['lon']), 6)
         accomodation_checked.save()
 
-        print(accomodation_checked.lat)
-        print(accomodation_checked.lon)
         verify = Accomodation.objects.filter(lat=accomodation_checked.lat).filter(lon=accomodation_checked.lon)
-        print(verify)
         if not verify:
             new_accommodation = Accomodation(
                 name = accomodation_checked.addAccomodation_name,

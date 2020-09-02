@@ -1,23 +1,45 @@
 {% load static %}
-<nav>
-    <div>
-        <a href="{% url 'home' %}"><img src="{% static 'img/motor.svg' %}" alt="Logo Pur Beurre" title="Logo OpenRider" width="70" height="70"></a>
-        <a href="{% url 'home' %}">OpenRider</a>
-    </div>
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+    <div class="container">
+    
+        <a class="navbar-brand js-scroll-trigger" href="{% url 'home' %}"><img src="{% static 'img/motor.svg' %}" alt="Logo OpenRider" title="Logo OpenRider" width="70" height="70"></a>
+        <a class="navbar-brand js-scroll-trigger" href="{% url 'home' %}">OpenRider</a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         
-    <div class="pb-5">
-        {% if user.is_superuser %}
-        <a class="nav-item" href="{% url 'accomodation:validation_waiting' %}">Admin</a>
-        {% endif %}
-        {% if user.is_authenticated %}
-        <span>Hi {{ request.user }}</span><br>
-        <a class="nav-item" href="{% url 'users:profile' %}">Profile</a>
-        <a class="nav-item" href="{% url 'users:fav' %}">Favoris</a>
-        <a class="nav-item" href="{% url 'accomodation:add' %}">Add accomodation</a>
-        <a class="nav-item" href="{% url 'users:logout' %}">Se déconnecter</a>
-        {% else %}
-        <a class="nav-item" href="{% url 'users:register' %}">Créer un compte</a>
-        <a class="nav-item" href="{% url 'users:login' %}">Se connecter</a>
-        {% endif %}
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto my-2 my-lg-0">
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <li class="nav-item">
+                    <form action="{% url 'accomodation:search' %}" method="GET">
+                    <input type="search" name="search" id="searchboxnav" placeholder="Entrez le nom d'une ville" size="30px">
+                    </form>
+                </li>
+            
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'users:profile' %}"><i class="far fa-user"></i> Hi {{ request.user }}</a></li>
+                {% endif %}
+                {% if user.is_superuser %}
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'accomodation:validation_waiting' %}">Admin</a>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'users:fav' %}"> Favoris</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'accomodation:add' %}"> Proposer un hébergment</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" id="button-logout" href="{% url 'users:logout' %}">Se déconnecter</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'users:register' %}">Créer un compte</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" id="button-login" href="{% url 'users:login' %}">Se connecter</a></li>
+                {% endif %}
+
+            </ul>
+        </div>
     </div>
 </nav>
