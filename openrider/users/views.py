@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import UserRegisterForm
 from accomodation.models import Accomodation
@@ -55,4 +56,13 @@ def delete_fav(request):
         fav = Accomodation.objects.get(auto_increment_id=elt)
         fav_delete = Favorite.objects.filter(user=current_user, accomodation_saved=fav)
         fav_delete.delete()
-    return redirect('users:fav') 
+    return redirect('users:fav')
+
+@login_required
+def delete_account(request):
+    if request.method == "POST":
+         if not request.user.is_superuser:
+            current_user = request.user
+            user = User.objects.get(username=current_user.username)
+            user.delete()
+    return redirect('home')

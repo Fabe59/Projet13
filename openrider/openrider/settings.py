@@ -31,15 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'users',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'accomodation',
-    'users',
     'crispy_forms',
 ]
 
@@ -139,3 +138,10 @@ LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'users:login'
 
 GOOGLE_RECAPTCHA_SECRET_KEY = '*'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "*"
+EMAIL_HOST_PASSWORD = "*"

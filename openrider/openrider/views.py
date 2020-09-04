@@ -13,3 +13,6 @@ def home(request):
         'users_total': users_total
     }
     return render(request, 'openrider/home.html', context)
+
+def legals(request):
+    return render(request, 'openrider/legals.html')

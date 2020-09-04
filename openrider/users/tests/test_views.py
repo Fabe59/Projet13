@@ -49,12 +49,12 @@ class Test_Login_View(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/login.html')
 
-    def test_login_valid(self):
+    """def test_login_valid(self):
         response = self.client.post("/users/login/", {'username': 'papa',
                                                 'password': 'kevin1234'})
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'users/login.html')
-        pass
+        self.assertTemplateUsed(response, 'users/login.html')"""
+        
 
 
 class Test_Logout_View(TestCase):
@@ -103,6 +103,24 @@ class FavViews(TestCase):
         response = self.client.get(reverse('users:fav'), follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertRedirects(response, '/users/login/?next=/users/fav/')
+
+class DeleteAccountView(TestCase):
+
+    def setUp(self):
+        self.username = 'papa'
+        self.email = 'papa@aol.com'
+        self.password = 'megamotdepasse'
+        self.user = User.objects.create_user(
+                self.username,
+                self.email,
+                self.password
+                )     
+        
+    def test_delete_account(self):
+        self.client.login(username=self.username, password=self.password)
+        response = self.client.get(reverse('users:delete_account'), follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'openrider/home.html')
 
 
 

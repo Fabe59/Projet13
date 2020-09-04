@@ -20,6 +20,12 @@
                 <p class="text-white mt-0"><b>Email utilisé</b> : {{ user.email }}</p>      
             </div>
         </div>
+        <div class="row justify-content-center">
+            <form action="{% url 'users:delete_account' %}" method="POST">
+                {% csrf_token %}
+                <input  type="submit" class="btn btn-success" value="Supprimer ce compte">
+            </form>
+        </div>
     </div>
-</section>    
+</section>   
 {% endblock content%}

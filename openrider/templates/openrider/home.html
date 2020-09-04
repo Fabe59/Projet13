@@ -32,20 +32,20 @@
             </div>
             <div class="col-lg-8 align-self-baseline">
                 <p class="text-white-75 font-weight-light mb-5">Trouvez un logement confortable pour vous et votre moto</p>
-                <form class="d-flex justify-content-center" action="{% url 'accomodation:search' %}" method="GET">
-                    <input type="search" name="search" id="searchbox" class="col-md-6 form-inline input-group" placeholder="Entrez le nom d'une ville" autofocus>
-                    <input class="btn btn-primary btn-xl js-scroll-trigger" type="submit" value="Lancer la recherche">
+                <form class="form-inline justify-content-center pb-3" action="{% url 'accomodation:search' %}" method="GET">
+                    <input type="search" name="search" id="searchbox" class="col-sm-6 col-8 form-control input-group" placeholder="Entrez le nom d'une ville" autofocus>
+                    <input class="btn btn-primary js-scroll-trigger" type="submit" value="Lancer la recherche">
                 </form>
-                <form action="{% url 'accomodation:geoloc' %}" method="GET">
+                <form class="pb-3" action="{% url 'accomodation:geoloc' %}" method="GET">
                     <input type="hidden" name="coord" value="" id="js_data_input">
                     <div id="geolocform">
                     </div>
                 </form>
             </div>
             <div class="col-lg-8 align-self-baseline">
+                <p class="text-white-75 font-weight-light mb-2">La communauté OpenRider compte {{ users_total }} utilisateur{{ users_total|pluralize }}.</p>
                 <p class="text-white-75 font-weight-light mb-2">OpenRider référence {{ accomodation_total }} hébergement{{ accomodation_total|pluralize }}.</p>
                 <p class="text-white-75 font-weight-light mb-2">{{ accomodation_comment_total }} commentaire{{ accomodation_comment_total|pluralize }} laissé(s)</p>
-                <p class="text-white-75 font-weight-light mb-2">La communauté OpenRider compte {{ users_total }} utilisateur{{ users_total|pluralize }} à ce jour.</p>
             </div>
         </div>
     </div>
