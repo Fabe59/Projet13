@@ -23,14 +23,14 @@ def add(request):
 
     return render(request, 'accomodation/add.html', {'form': form})
 
-@login_required
 def search(request):
     research = request.GET['search']
+    research = research.title()
+    all_result = Accomodation.objects.all()
 
     if not research:
-        return redirect('home')
+        return render(request, 'accomodation/all_result.html', {'all_result': all_result})
 
-    all_result = Accomodation.objects.all()
     result = Accomodation.objects.filter(city__contains=research)
     
     if result:
@@ -56,6 +56,14 @@ def search(request):
 @login_required
 def details(request, id):
     accomodation = Accomodation.objects.get(auto_increment_id=id)
+
+    all_result = Accomodation.objects.all()
+    others_result = []
+    for elt in all_result:
+        dist = 6371 * acos( cos( radians(Decimal(accomodation.lat)) ) * cos( radians(Decimal(elt.lat)) ) * cos( radians(Decimal(elt.lon)) - radians(Decimal(accomodation.lon)) ) + sin( radians(Decimal(accomodation.lat)) ) * sin( radians(Decimal(elt.lat)) ) )
+        if dist <= 10:
+            others_result.append(elt)
+
     is_liked = False
     if accomodation.likes.filter(id=request.user.id).exists():
         is_liked = True
@@ -88,7 +96,7 @@ def details(request, id):
         else:
             comment_form = CommentForm()
 
-    return render(request, 'accomodation/details.html', {'accomodation': accomodation, 'is_liked': is_liked, 'total_likes': accomodation.total_likes() ,'comments': comments, 'comment_form': comment_form})
+    return render(request, 'accomodation/details.html', {'accomodation': accomodation, 'is_liked': is_liked, 'total_likes': accomodation.total_likes() ,'comments': comments, 'comment_form': comment_form, 'others_result': others_result})
 
 
 @login_required
@@ -170,7 +178,6 @@ def validation_refused(request):
 
     return redirect('accomodation:validation_waiting')
 
-@login_required
 def geoloc(request):
     coord = request.GET['coord']
     coord_user = json.loads(coord)

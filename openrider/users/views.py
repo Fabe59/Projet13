@@ -4,9 +4,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, ContactForm
 from accomodation.models import Accomodation
 from .models import Favorite
+from django.core.mail import send_mail
+
 
 def register(request):
     if request.method == 'POST':
@@ -65,4 +67,24 @@ def delete_account(request):
             current_user = request.user
             user = User.objects.get(username=current_user.username)
             user.delete()
+    return redirect('home')
+
+def contact(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            contact_name = form.cleaned_data['contact_name']
+            contact_email = form.cleaned_data['contact_email']
+            content = form.cleaned_data['content']
+            send_mail(
+                contact_name,
+                content,
+                contact_email,
+                ['openriderfr@gmail.com'],
+            )
+            messages.success(request, 'Message sent successfully !')
+            return redirect('home')
+    else:
+        form = ContactForm()
+
     return redirect('home')

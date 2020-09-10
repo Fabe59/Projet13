@@ -94,6 +94,7 @@ class Accomodation_Views_Test(TestCase):
     def test_add_view_notlogged(self):
         response = self.client.get(reverse('accomodation:add'))
         self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/users/login/?next=/accomodation/add/')
 
     def test_add_view_logged(self):
         self.client.login(username=self.username, password=self.password)
@@ -104,7 +105,8 @@ class Accomodation_Views_Test(TestCase):
     def test_search_view_isempty(self):
         self.client.login(username=self.username, password=self.password)
         response = self.client.get('/accomodation/search/?search=%s' %(''))
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'accomodation/all_result.html')
 
     def test_search_view_valid(self):
         self.client.login(username=self.username, password=self.password)

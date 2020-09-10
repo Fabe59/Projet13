@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
 
 {% block content %}
@@ -6,10 +7,10 @@
 <header class="details d-flex">
     <div class="container">
         <div class="row align-items-center justify-content-center text-center">
-            <div class="col-lg-10 align-self-end">
+            <div class="col-lg-10 align-self-middle">
                 <h2 class="text-uppercase text-white font-weight-bold">Fiche détaillée concernant le logement : {{ accomodation.name }}</h2>
                 <hr class="divider my-4" />
-                {% if accomodation.image %}<img class="img-details" src= "{{ accomodation.image.url }}" alt="{{ accomodation.name }}">{% endif %}</a>
+                {% if accomodation.image %}<img class="img-details" src= "{{ accomodation.image.url }}" alt="{{ accomodation.name }}">{% endif %}
             </div>
         </div>
     </div>
@@ -20,7 +21,7 @@
             <div class="col-lg-7 text-center">
                 <p class="mb-2 text-left"><b>Nom : </b>{{ accomodation.name }}</p>
                 <p class="mb-2 text-left"><b>Type d'hébergement : </b>{{ accomodation.category }}</p>
-                <p class="mb-2 text-left"><b>Type de parkin : </b>{{ accomodation.park }}</p>
+                <p class="mb-2 text-left"><b>Type de parking : </b>{{ accomodation.park }}</p>
                 {% if accomodation.number %}
                     <p class="mb-2 text-left"><b>Adresse : </b>{{ accomodation.number }} {{ accomodation.road }}, {{ accomodation.zipcode }}, {{ accomodation.city }}</p>
                 {% else %}
@@ -64,7 +65,7 @@
             <div class="col-lg-8 text-center">
                 <h2 class="text-white mt-0">Envie de laisser un commentaire?</h2>
                 <hr class="divider my-4" />
-                <div>
+                <div class="d-flex justify-content-center">
                     <form class="comment_form" method="POST">
                         {% csrf_token %}
                         {{ comment_form|crispy}}
@@ -85,6 +86,21 @@
         </div>
     </div>
 </section>
+<section class="page-section bg-dark text-white">
+    <div class="container text-center">
+        <h3 class="slider-title">Les autres hébergements possibles :</h3>
+    <div class="for_slick_slider_details">
+        {% for elt in others_result %}
+            <a href="{% url 'accomodation:details' elt.auto_increment_id %}">
+            <div class="img-last">
+                {% if elt.image %}<img src="{{ elt.image.url }}" alt="{{ elt.name }}">{% endif %}
+                <div class="overlay"></div>
+            </div>
+            </a>            
+        {% endfor %}
+    </div>
+</section>
 
+<script type="text/javascript" src="/static/js/slickdetails.js"></script>
 
 {% endblock content %}

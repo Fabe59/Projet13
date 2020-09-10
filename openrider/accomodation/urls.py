@@ -11,4 +11,5 @@ urlpatterns = [
     path('validation_checked/', views.validation_checked, name="validation_checked"),
     path('validation_refused/', views.validation_refused, name="validation_refused"),
     path('like/', views.like, name="like"),
+
 ]

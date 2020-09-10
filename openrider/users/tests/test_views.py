@@ -49,11 +49,11 @@ class Test_Login_View(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/login.html')
 
-    """def test_login_valid(self):
+    def test_login_valid(self):
         response = self.client.post("/users/login/", {'username': 'papa',
                                                 'password': 'kevin1234'})
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'users/login.html')"""
+        self.assertTemplateUsed(response, 'users/login.html')
         
 
 
@@ -122,6 +122,12 @@ class DeleteAccountView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'openrider/home.html')
 
+class ContactView(TestCase):
+        
+    def test_delete_account(self):
+        response = self.client.get(reverse('users:contact'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/')
 
 
 

@@ -26,7 +26,7 @@ class AddAccomodation(models.Model):
     
     addAccomodation_auto_increment_id = models.AutoField(primary_key=True)
     addAccomodation_name = models.CharField("Nom", max_length=128)
-    addAccomodation_category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    addAccomodation_category = models.ForeignKey(Category, verbose_name=("Categorie d'hébergement"), on_delete=models.CASCADE)
     addAccomodation_number = models.PositiveSmallIntegerField("Numéro", null=True, blank=True)
     addAccomodation_road = models.CharField("Adresse", max_length=250)
     addAccomodation_zipcode = models.PositiveIntegerField("Code Postal")
@@ -34,8 +34,8 @@ class AddAccomodation(models.Model):
     addAccomodation_phone = models.CharField("Téléphone", max_length=10)
     addAccomodation_email = models.EmailField("Email")
     addAccomodation_url = models.URLField("URL", null=True, blank=True)
-    addAccomodation_parking = models.ForeignKey(Parking, on_delete=models.CASCADE)
-    addAccomodation_image = models.ImageField('Image', null=True, blank=True, upload_to="accomodation/", default="default_accomodation_image.jpg")
+    addAccomodation_parking = models.ForeignKey(Parking, verbose_name=('Type de Parking'), on_delete=models.CASCADE)
+    addAccomodation_image = models.ImageField("Image", null=True, blank=True, upload_to="accomodation/", default="default_accomodation_image.jpg")
     addAccomodation_description = models.CharField('Description', max_length=250)
     addAccomodation_statut = models.CharField("Statut de la demande", choices=addAccomodation_statut_list, max_length=16, default="Non_lu")
 
@@ -60,6 +60,10 @@ class Accomodation(models.Model):
     lat = models.DecimalField(max_digits=11, decimal_places=6, null=True, blank=True)
     lon = models.DecimalField(max_digits=11, decimal_places=6, null=True, blank=True)
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
+
+    def save(self, *args, **kwargs):
+        self.city = self.city.title()
+        return super(Accomodation, self).save(*args, **kwargs)
     
     def total_likes(self):
         return self.likes.count()
