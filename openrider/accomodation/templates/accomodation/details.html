@@ -78,7 +78,7 @@
                     {% for comment in comments %}
                     <blockquote class="blockquote">
                         <p class="text-left mb-0">{{ comment.text }}</p>
-                        <footer class="blockquote-footer text-left">by <cite title="Source Title">{{ comment.user }} - {{ comment.timestamp }}</cite></footer>
+                        <footer class="blockquote-footer text-left text-white">by <cite title="Source Title">{{ comment.user }} - {{ comment.timestamp }}</cite></footer>
                     </blockquote>
                     {% endfor %}
                 </div>
@@ -94,7 +94,9 @@
             <a href="{% url 'accomodation:details' elt.auto_increment_id %}">
             <div class="img-last">
                 {% if elt.image %}<img src="{{ elt.image.url }}" alt="{{ elt.name }}">{% endif %}
-                <div class="overlay"></div>
+                <div class="overlay-name">
+                    <p>{{ elt.name }}<p>
+                </div>
             </div>
             </a>            
         {% endfor %}

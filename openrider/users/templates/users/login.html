@@ -2,22 +2,6 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<!--<h1>Login</h1>
-<div>
-    <form method="POST">
-        {% csrf_token %}
-        <fieldset>
-            <legend>Login</legend>
-            {{ form|crispy }}
-        </fieldset>
-        <br>
-        <input type="submit" value="Login">
-    </form>
-    <div>
-        <br>Envie d'un compte? <a href="{% url 'users:register' %}"> C'est ici!</a>
-    </div>
-
-</div>-->
 
 <header class="login d-flex">
     <div class="container">
@@ -42,4 +26,5 @@
         </div>
     </div>
 </header>
+
 {% endblock content%}

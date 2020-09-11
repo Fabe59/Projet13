@@ -14,8 +14,8 @@
             <div class="col-lg-8 align-self-baseline">
                 <p class="text-white-75 font-weight-light mb-5">Trouvez un logement confortable pour vous et votre moto</p>
                 <form class="form-inline justify-content-center pb-3" action="{% url 'accomodation:search' %}" method="GET">
-                    <input type="search" name="search" id="searchbox" class="col-sm-6 col-8 form-control input-group" placeholder="Entrez le nom d'une ville" autofocus>
-                    <input class="btn btn-primary js-scroll-trigger" type="submit" value="Lancer la recherche">
+                    <input type="search" name="search" id="searchbox2" class="col-sm-6 col-8 form-control input-group" placeholder="Entrez le nom d'une ville" autofocus>
+                    <input class="btn btn-primary js-scroll-trigger" id="searchbutton2" type="submit" value="">
                 </form>
                 <form class="pb-5" action="{% url 'accomodation:geoloc' %}" method="GET">
                     <input type="hidden" name="coord" value="" id="js_data_input">
@@ -106,11 +106,9 @@
                         <button class="btn btn-indigo" type="submit">Envoyer</button>
                     </div>
                     </form>
-    
 </section>
-
+<script type="text/javascript" src="/static/js/searchbutton.js"></script>
 <script type="text/javascript" src="/static/js/slick.js"></script>
 <script type="text/javascript" src="/static/js/geoloc.js"></script>
-
 
 {% endblock %}

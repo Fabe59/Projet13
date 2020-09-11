@@ -12,6 +12,8 @@ django-crispy-forms = "*"
 requests = "*"
 pillow = "*"
 coverage = "*"
+selenium = "*"
+webdriver-manager = "*"
 
 [requires]
 python_version = "3.8"

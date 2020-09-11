@@ -10192,7 +10192,7 @@ header.masthead h1 {
 
 .result_elt img {
   display: block;
-  width: 75%;
+  width: 40%;
   margin: auto;
 }
 
@@ -10200,13 +10200,53 @@ header.masthead h1 {
   height: 50vh;
 }
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 1080px) {
   .container-search{
     max-width: 100%;
     display: grid;
     grid-template-columns: 5fr 6fr;
     background-color: rgb(221, 221, 221);
-    height: 50vh;
+    height: 100%;
+  }
+
+  .list {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 30px;
+    padding: 30px 30px;
+  }
+
+  .map { 
+    background-color: #CCCCCC;
+    position: sticky!important; 
+    top: 0;
+    right: 0;
+    left: 0;
+    height: auto;
+  }
+
+  .result_elt {
+    display: inline-table;
+    cursor: pointer;
+    transition: box-shadow .3s;
+    margin: 0 0 30px 0;
+  }
+
+  .result_elt img {
+    display: block;
+    width: 100%;
+    height: 140px;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  .container-search{
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 5fr 6fr;
+    background-color: rgb(221, 221, 221);
+    height: 100%;
   }
 
   .list {
@@ -10236,7 +10276,7 @@ header.masthead h1 {
   .result_elt img {
     display: block;
     width: 100%;
-    max-height: 140px;
+    height: 140px;
   }
 }
 
@@ -10341,9 +10381,17 @@ img.accomodation_fav_image{
   padding: 3rem 0;
 }
 
+
 .img-details {
-  height: 50%;
-  width: 50%;
+    width: 50%;
+    height: 50%;
+}
+
+@media only screen and (min-width: 1080px) {
+  .img-details {
+    width: 50%;
+    height: 500px;
+  }
 }
 
 .album {
@@ -10369,8 +10417,7 @@ img.accomodation_fav_image{
   padding: 10px 32px;
   box-shadow: 0 -2px 16px rgba(47, 54, 64, 0.39);
   z-index: 1000;
-
-  transition: 400ms;
+  transition: 500ms;
 }
 
 .cookie-container.active {
@@ -10454,8 +10501,28 @@ p.cookieparagraph {
   display: flex;
 }
 
-.for_slick_slider_details img {
+.for_slick_slider_details .img-last {
+  margin: 30px auto;
+  width: 350px;
+  height: 250px;
+  position: relative;
+}
+
+.for_slick_slider_details .img-last .overlay-name {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 350px;
+  height: 250px;
+}
+
+.for_slick_slider_details .img-last .overlay-name p {
+  font: italic 2rem "Fira Sans", serif;
+}
+
+.for_slick_slider_details .img-last img {
   margin: auto;
   width: 350px;
   height: 250px;
 }
+
