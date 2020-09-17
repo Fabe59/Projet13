@@ -1,6 +1,14 @@
 from django.test import TestCase
-from accomodation.views import add, search, details, like, validation_waiting, validation_checked, validation_refused, geoloc
+from accomodation.views import add,\
+                                search,\
+                                details,\
+                                like,\
+                                validation_waiting,\
+                                validation_checked,\
+                                validation_refused,\
+                                geoloc
 from django.urls import reverse, resolve
+
 
 class Accomodation_Urls_Test(TestCase):
 
@@ -14,7 +22,7 @@ class Accomodation_Urls_Test(TestCase):
 
     def test_geoloc_url_resolves(self):
         url = reverse('accomodation:geoloc')
-        self.assertEquals(resolve(url).func, geoloc)       
+        self.assertEquals(resolve(url).func, geoloc)
 
     def test_details_url_like(self):
         url = reverse('accomodation:details', args=['7'])
@@ -23,7 +31,7 @@ class Accomodation_Urls_Test(TestCase):
     def test_like_url_resolves(self):
         url = reverse('accomodation:like')
         self.assertEquals(resolve(url).func, like)
-    
+
     def test_validation_waiting_url_resolves(self):
         url = reverse('accomodation:validation_waiting')
         self.assertEquals(resolve(url).func, validation_waiting)

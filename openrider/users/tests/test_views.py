@@ -1,7 +1,5 @@
 from django.test import TestCase
 from django.urls import reverse
-from accomodation.models import Category, Parking, Accomodation
-from users.models import Favorite
 from django.contrib.auth.models import User
 
 
@@ -11,7 +9,7 @@ class Test_Register_Views(TestCase):
         response = self.client.get(reverse('users:register'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/register.html')
-    
+
     def test_register_account_valid(self):
         response = self.client.post("/users/register/",
                                     {
@@ -22,7 +20,7 @@ class Test_Register_Views(TestCase):
                                     }, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'openrider/home.html')
-    
+
     def test_register_account_invalid(self):
         response = self.client.post("/users/register/",
                                     {
@@ -50,18 +48,21 @@ class Test_Login_View(TestCase):
         self.assertTemplateUsed(response, 'users/login.html')
 
     def test_login_valid(self):
-        response = self.client.post("/users/login/", {'username': 'papa',
-                                                'password': 'kevin1234'})
+        response = self.client.post("/users/login/", {
+                                            'username': 'papa',
+                                            'password': 'kevin1234'})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/login.html')
-        
 
 
 class Test_Logout_View(TestCase):
 
     def SetUp(self):
         User.objects.create_user(
-            username="UserTest", email="usertest@test.fr", password="megamotdepasse59")
+            username="UserTest",
+            email="usertest@test.fr",
+            password="megamotdepasse59"
+            )
 
     def test_logout(self):
         self.client.login(username="UserTest", password="megamotdepasse59")
@@ -69,17 +70,22 @@ class Test_Logout_View(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/logout.html')
 
+
 class ProfileViews(TestCase):
 
     def setUp(self):
         User.objects.create_user(
-            username="UserTest", email="usertest@test.fr", password="megamotdepasse59")
+            username="UserTest",
+            email="usertest@test.fr",
+            password="megamotdepasse59"
+            )
 
     def test_account_when_logged_in(self):
         self.client.login(username="UserTest", password="megamotdepasse59")
         response = self.client.get(reverse('users:profile'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/profile.html')
+
 
 class FavViews(TestCase):
 
@@ -91,8 +97,8 @@ class FavViews(TestCase):
                 self.username,
                 self.email,
                 self.password
-                )     
-        
+                )
+
     def test_fav_when_logged_in(self):
         self.client.login(username=self.username, password=self.password)
         response = self.client.get(reverse('users:fav'))
@@ -104,6 +110,7 @@ class FavViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertRedirects(response, '/users/login/?next=/users/fav/')
 
+
 class DeleteAccountView(TestCase):
 
     def setUp(self):
@@ -114,23 +121,20 @@ class DeleteAccountView(TestCase):
                 self.username,
                 self.email,
                 self.password
-                )     
-        
+                )
+
     def test_delete_account(self):
         self.client.login(username=self.username, password=self.password)
-        response = self.client.get(reverse('users:delete_account'), follow=True)
+        response = self.client.get(
+                            reverse('users:delete_account'),
+                            follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'openrider/home.html')
 
+
 class ContactView(TestCase):
-        
+
     def test_delete_account(self):
         response = self.client.get(reverse('users:contact'))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/')
-
-
-
-    
-
-

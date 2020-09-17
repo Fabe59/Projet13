@@ -1,3 +1,3 @@
 CATEGORIES = ['Hotel', 'Gite', 'BnB']
 
-PARKING = ['Garage', 'Couvert', 'Fermé']
+PARKING = ['Garage', 'Couvert', 'Clos']

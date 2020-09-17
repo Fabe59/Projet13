@@ -13,10 +13,11 @@ def home(request):
         'accomodation_total': accomodation_total,
         'accomodation_comment_total': accomodation_comment_total,
         'users_total': users_total,
-        'latest' : lastest,
+        'latest': lastest,
         'form': ContactForm()
     }
     return render(request, 'openrider/home.html', context)
+
 
 def legals(request):
     return render(request, 'openrider/legals.html')

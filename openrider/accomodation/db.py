@@ -10,7 +10,6 @@ class Database:
         for cat in CATEGORIES:
             Category.objects.create(name=cat)
 
-
     def get_parking(self):
         """Add parking in database"""
 

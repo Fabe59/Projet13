@@ -21,6 +21,7 @@ class AddAccomodationForm(ModelForm):
                 'addAccomodation_image',
                 ]
 
+
 class CommentForm(ModelForm):
 
     class Meta:

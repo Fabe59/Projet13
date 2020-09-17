@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -25,16 +24,20 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
+
 @login_required
 def profile(request):
     return render(request, 'users/profile.html')
+
 
 @login_required
 def save(request):
     if request.method == "POST":
         current_user = request.user
         accomodation = request.POST.get('elt_id')
-        accomodation_saved = Accomodation.objects.get(auto_increment_id=accomodation)
+        accomodation_saved = Accomodation.objects.get(
+                                        auto_increment_id=accomodation
+                                        )
         Favorite.objects.get_or_create(
             user=current_user,
             accomodation_saved=accomodation_saved
@@ -42,13 +45,16 @@ def save(request):
 
     return redirect('home')
 
+
 @login_required
 def fav(request):
     current_user = request.user
     favs = Favorite.objects.filter(user=current_user)
     accomodations_favs = [fav.accomodation_saved for fav in favs]
+    contexte = {'accomodations_favs': accomodations_favs}
 
-    return render(request, 'users/fav.html', {'accomodations_favs': accomodations_favs})
+    return render(request, 'users/fav.html', contexte)
+
 
 @login_required
 def delete_fav(request):
@@ -56,18 +62,23 @@ def delete_fav(request):
         current_user = request.user
         elt = request.POST.get('fav_id')
         fav = Accomodation.objects.get(auto_increment_id=elt)
-        fav_delete = Favorite.objects.filter(user=current_user, accomodation_saved=fav)
+        fav_delete = Favorite.objects.filter(
+                                user=current_user,
+                                accomodation_saved=fav
+                                )
         fav_delete.delete()
     return redirect('users:fav')
+
 
 @login_required
 def delete_account(request):
     if request.method == "POST":
-         if not request.user.is_superuser:
+        if not request.user.is_superuser:
             current_user = request.user
             user = User.objects.get(username=current_user.username)
             user.delete()
     return redirect('home')
+
 
 def contact(request):
     if request.method == "POST":

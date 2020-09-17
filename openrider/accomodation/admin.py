@@ -1,5 +1,9 @@
 from django.contrib import admin
-from accomodation.models import Category, Parking, Accomodation, AddAccomodation, Comment
+from accomodation.models import Category,\
+                                Parking,\
+                                Accomodation,\
+                                AddAccomodation,\
+                                Comment
 
 admin.site.register(Category)
 admin.site.register(Parking)
@@ -23,5 +27,6 @@ class AddAccomodation_Admin(admin.ModelAdmin):
     )
 
     list_filter = ('addAccomodation_statut',)
+
 
 admin.site.register(AddAccomodation, AddAccomodation_Admin)

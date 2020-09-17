@@ -9,6 +9,7 @@ class HomepageViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'openrider/home.html')
 
+
 class LegalsViews(TestCase):
 
     def test_legals(self):

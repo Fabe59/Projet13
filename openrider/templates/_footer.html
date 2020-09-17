@@ -1,7 +1,13 @@
-<footer class="bg-light py-5 d-flex">
+<footer class="bg-light py-3">
+  <div class="col-lg-12 d-flex">
     <div class="col-lg-4 text-center"><a href="{% url 'legals' %}">Mentions légales</a></div>
     <div class="col-lg-4 small text-center">&copy; Copyright {% now 'Y' %} &middot; OpenRider &middot; All rights reserved</div>
     <div class="col-lg-4 text-center"><a href="{% url 'home' %}#contact">Contact</a></div>
+  </div>
+  <div class="col-lg-12 pt-3 d-flex justify-content-center">
+    <button class="button-twitter mx-3" data-url="https://www.openrider.fr"><i class="fab fa-twitter fa-lg"></i> Partager</button>
+    <button class="button-facebook mx-3" data-url="https://www.openrider.fr"><i class="fab fa-facebook fa-lg"></i> Partager</button>
+  </div>
 </footer>
 
 <div class="cookie-container">

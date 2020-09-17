@@ -33,6 +33,7 @@ class Chrome_Login_Logout_FunctionalTestCase(StaticLiveServerTestCase):
         self.browser.find_element_by_css_selector('#button-logout').click()
         self.assertTemplateUsed('users/logout.html')
 
+
 class Chrome_Search_FunctionalTestCase(StaticLiveServerTestCase):
 
     def setUp(self):
@@ -68,6 +69,7 @@ class Chrome_Search_FunctionalTestCase(StaticLiveServerTestCase):
         self.browser.find_element_by_css_selector('#searchbutton2').click()
         self.assertTemplateUsed('accomodation/search.html')
 
+
 class Chrome_Favorite_Page_FunctionalTestCase(StaticLiveServerTestCase):
 
     def setUp(self):
@@ -95,7 +97,8 @@ class Chrome_Favorite_Page_FunctionalTestCase(StaticLiveServerTestCase):
         self.browser.find_element_by_css_selector('#button-fav').click()
         self.assertTemplateUsed('users/favorite.html')
 
-class Chrome_Add_Accomodation_Page_FunctionalTestCase(StaticLiveServerTestCase):
+
+class Chrome_Add_Accomodation_FunctionalTestCase(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Chrome(chrome_options=chrome_options)
@@ -119,24 +122,33 @@ class Chrome_Add_Accomodation_Page_FunctionalTestCase(StaticLiveServerTestCase):
         password = self.browser.find_element_by_css_selector('#id_password')
         password.send_keys("PasswordTest2020")
         self.browser.find_element_by_css_selector('#button-submit').click()
-        self.browser.find_element_by_css_selector('#button-add_accomodation').click()
+        self.browser.find_element_by_css_selector(
+            '#button-add_accomodation').click()
         self.assertTemplateUsed('user/add.html')
-        password = self.browser.find_element_by_css_selector('#id_addAccomodation_name')
+        password = self.browser.find_element_by_css_selector(
+            '#id_addAccomodation_name')
         password.send_keys("TestAccomodation")
-        password = self.browser.find_element_by_css_selector('#id_addAccomodation_category')
+        password = self.browser.find_element_by_css_selector(
+            '#id_addAccomodation_category')
         password.send_keys("Hotel")
-        password = self.browser.find_element_by_css_selector('#id_addAccomodation_road')
+        password = self.browser.find_element_by_css_selector(
+            '#id_addAccomodation_road')
         password.send_keys("Rue du Test")
-        password = self.browser.find_element_by_css_selector('#id_addAccomodation_zipcode')
+        password = self.browser.find_element_by_css_selector(
+            '#id_addAccomodation_zipcode')
         password.send_keys("59000")
-        password = self.browser.find_element_by_css_selector('#id_addAccomodation_city')
+        password = self.browser.find_element_by_css_selector(
+            '#id_addAccomodation_city')
         password.send_keys("Lille")
-        password = self.browser.find_element_by_css_selector('#id_addAccomodation_phone')
+        password = self.browser.find_element_by_css_selector(
+            '#id_addAccomodation_phone')
         password.send_keys("0102030405")
-        password = self.browser.find_element_by_css_selector('#id_addAccomodation_parking')
+        password = self.browser.find_element_by_css_selector(
+            '#id_addAccomodation_parking')
         password.send_keys("Garage")
-        password = self.browser.find_element_by_css_selector('#id_addAccomodation_description')
+        password = self.browser.find_element_by_css_selector(
+            '#id_addAccomodation_description')
         password.send_keys("Cool!")
-        self.browser.find_element_by_css_selector('#validation-add_accomodation').click()
+        self.browser.find_element_by_css_selector(
+            '#validation-add_accomodation').click()
         self.assertTemplateUsed('openrider/home.html')
-
