@@ -87,9 +87,10 @@ def contact(request):
             contact_name = form.cleaned_data['contact_name']
             contact_email = form.cleaned_data['contact_email']
             content = form.cleaned_data['content']
+            msg_mail = str(content) + " -- " + str(contact_email)
             send_mail(
                 contact_name,
-                content,
+                msg_mail,
                 contact_email,
                 ['openriderfr@gmail.com'],
             )
