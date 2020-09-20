@@ -6,9 +6,6 @@ python:
 addons:
   chrome: stable
 
-branches:
-  only: master
-
 install:
   - pip installe pipenv
   - pipenv install --dev
