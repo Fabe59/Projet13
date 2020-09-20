@@ -7,7 +7,7 @@ addons:
   chrome: stable
 
 install:
-  - pip installe pipenv
+  - pip install pipenv
   - pipenv install --dev
 
 before_script:
