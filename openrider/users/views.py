@@ -94,7 +94,7 @@ def contact(request):
                 contact_email,
                 ['openriderfr@gmail.com'],
             )
-            messages.success(request, 'Votre message a été envoyé. Merci !')
+            messages.success(request, 'Votre message a été envoyé. Merci!')
             return redirect('home')
     else:
         form = ContactForm()
