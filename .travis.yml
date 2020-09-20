@@ -10,9 +10,6 @@ install:
   - pip install pipenv
   - pipenv install --dev
 
-before_script:
-  - install-webdrivers
-
 env: DJANGO_SETTINGS_MODULE="openrider.settings"
 
 services:
