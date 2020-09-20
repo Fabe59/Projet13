@@ -11,8 +11,8 @@ install:
   - pipenv install --dev
 
 env:
+  - SECRET_KEY = "7q+i=7c%v)-bwudx&^+p7ltj@c30he1&@i9ggfd3ls26r!isim"
   global:
-    - SECRET_KEY = "7q+i=7c%v)-bwudx&^+p7ltj@c30he1&@i9ggfd3ls26r!isim"
     - DJANGO_SETTINGS_MODULE="openrider.settings"
 
 services:
