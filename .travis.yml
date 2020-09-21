@@ -1,0 +1,25 @@
+language: python
+
+python:
+  - '3.8'
+
+addons:
+  chrome: stable
+  firefox: latest
+
+install:
+  - pip install pipenv
+  - pip install tchappui-webdrivers
+  - pipenv install
+
+before_script:
+  - install-webdrivers
+
+env:
+  - SECRET_KEY="^)b3nzjfrx(jf2n-66@2p4866pf%op+h$5tw&&_rq9%!d=**1!"
+
+services:
+  - postgresql
+
+script:
+  - cd openrider && python manage.py test -v2
