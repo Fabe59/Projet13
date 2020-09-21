@@ -113,7 +113,9 @@ def details(request, id):
                                             text=text
                                             )
                 comment.save()
-                messages.success(request, 'Votre commentaire a été ajouté. Merci!')
+                messages.success(
+                    request, 'Votre commentaire a été ajouté. Merci!'
+                    )
                 return HttpResponseRedirect(accomodation.get_absolute_url())
             else:
                 messages.warning(
