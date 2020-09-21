@@ -3,8 +3,8 @@ let button1 = document.querySelector("#searchbutton1");
 let inputbox2 = document.querySelector('#searchbox2');
 let button2 = document.querySelector("#searchbutton2");
 
-inputbox1.addEventListener("change", displayButton1);
-inputbox2.addEventListener("change", displayButton2);
+inputbox1.addEventListener("keydown", displayButton1);
+inputbox2.addEventListener("keydown", displayButton2);
 
 function displayButton1() {
   if(inputbox1.value == ""){
