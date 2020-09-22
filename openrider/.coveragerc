@@ -16,3 +16,4 @@ omit =
     users/__init__.py
     users/admin.py
     accomodation/migrations/*
+    autocomplete/apps.py
