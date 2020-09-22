@@ -14,6 +14,7 @@ pillow = "*"
 coverage = "*"
 selenium = "*"
 webdriver-manager = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.8"
