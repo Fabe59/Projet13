@@ -25,4 +25,4 @@ services:
   - postgresql
 
 script:
-  - cd openrider && python manange.py test -v2
+  - cd openrider && python manage.py test -v2
