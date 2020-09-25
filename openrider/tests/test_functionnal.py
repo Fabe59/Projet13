@@ -117,7 +117,7 @@ class Chrome_Add_Accomodation_FunctionalTestCase(StaticLiveServerTestCase):
     def tearDown(self):
         self.browser.close()
 
-    def test_user_can_connect_and_disconnect(self):
+    def test_registred_user_can_add_accomodation(self):
         self.browser.find_element_by_css_selector('#button-login').click()
         user = self.browser.find_element_by_css_selector('#id_username')
         user.send_keys("UsernameTest")
