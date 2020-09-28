@@ -1,0 +1,28 @@
+langage: python
+
+python:
+  - '3.8'
+
+addons:
+  chrome: stable
+
+install:
+  - pip install pipenv
+  - pip install tchappui-webdrivers
+  - pipenv install
+
+branches:
+  only:
+    - master
+
+before_script:
+  - install-webdrivers
+
+env:
+  - DJANGO_SETTINGS_MODULE="openrider.settings.travis"
+
+services:
+  - postgresql
+
+script:
+  - cd openrider && python manage.py test -v2
