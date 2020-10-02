@@ -56,7 +56,7 @@ def search(request):
                         Decimal(lon))) + sin(
                             radians(Decimal(lat))) * sin(
                                 radians(Decimal(elt.lat))))
-        if dist <= 5:
+        if dist <= 10:
             final_result.append(elt)
 
     if not final_result:
@@ -249,7 +249,7 @@ def geoloc(request):
                         Decimal(lon))) + sin(
                             radians(Decimal(lat))) * sin(
                                 radians(Decimal(elt.lat))))
-        if dist <= 5:
+        if dist <= 10:
             final_result.append(elt)
     if not final_result:
         return render(request, 'accomodation/noresult.html')
