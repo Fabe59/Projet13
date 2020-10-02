@@ -111,18 +111,6 @@ class Accomodation_Views_Test(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'accomodation/all_result.html')
 
-    def test_search_view_valid(self):
-        self.client.login(username=self.username, password=self.password)
-        response = self.client.get(
-            '/accomodation/search/?search=%s' % ('Pluneret')
-            )
-        self.assertEqual((response.context['research']), 'Pluneret')
-        self.assertQuerysetEqual(
-            (response.context['final_result']),
-            (repr(elt) for elt in self.final_result))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'accomodation/search.html')
-
     def test_search_view_noresult(self):
         self.client.login(username=self.username, password=self.password)
         response = self.client.get(
