@@ -38,33 +38,32 @@ def search(request):
             {'all_result': all_result}
             )
 
-    result = Accomodation.objects.filter(city__contains=research)
+    url = "https://nominatim.openstreetmap.org/search/<query>?"
+    params = {
+        "city": research,
+        "format": 'json',
+        }
+    req = requests.get(url, params)
+    data = req.json()
+    lat = round(Decimal(data[0]['lat']), 6)
+    lon = round(Decimal(data[0]['lon']), 6)
+    final_result = []
+    for elt in all_result:
+        dist = 6371 * acos(
+            cos(radians(Decimal(lat))) * cos(
+                radians(Decimal(elt.lat))) * cos(
+                    radians(Decimal(elt.lon)) - radians(
+                        Decimal(lon))) + sin(
+                            radians(Decimal(lat))) * sin(
+                                radians(Decimal(elt.lat))))
+        if dist <= 5:
+            final_result.append(elt)
 
-    if result:
-        final_result = []
-        for elt in all_result:
-            dist = 6371 * acos(
-                cos(radians(Decimal(result[0].lat))) * cos(
-                    radians(Decimal(elt.lat))) * cos(
-                        radians(Decimal(elt.lon)) - radians(
-                            Decimal(result[0].lon))) + sin(
-                                radians(Decimal(result[0].lat))) * sin(
-                                    radians(Decimal(elt.lat))))
-            if dist <= 5:
-                final_result.append(elt)
-
-        return render(
-            request,
-            'accomodation/search.html',
-            {
-                'research': research,
-                'final_result': final_result,
-            }
-            )
+    if not final_result:
+        return render(request, 'accomodation/noresult.html')
 
     else:
-        result = None
-        return render(request, 'accomodation/noresult.html')
+        return render(request,'accomodation/search.html',{'research': research, 'final_result': final_result,})
 
 
 @login_required
