@@ -8,7 +8,7 @@ def home(request):
     accomodation_total = Accomodation.objects.count()
     accomodation_comment_total = Comment.objects.count()
     users_total = User.objects.count()
-    lastest = Accomodation.objects.all()[:4]
+    lastest = Accomodation.objects.all()[4:]
     context = {
         'accomodation_total': accomodation_total,
         'accomodation_comment_total': accomodation_comment_total,
